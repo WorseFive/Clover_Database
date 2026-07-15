@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https: http:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com https://raw.githubusercontent.com http://166.88.98.215:8090; frame-src 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https: http:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://166.88.98.215:8443; frame-src 'none';">
 <title>WorseFive's Space</title>
 <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.22.0/dist/pocketbase.umd.min.js" crossorigin="anonymous"></script>
 <style>
@@ -283,7 +283,7 @@ function switchPage(page) {
 // ============================================================
 (function() {
   var pb = null;
-  var PB_URL = 'http://166.88.98.215:8090';
+  var PB_URL = 'https://166.88.98.215:8443';
 
   try {
     if (typeof PocketBase === 'undefined') throw new Error('PocketBase SDK not loaded');
