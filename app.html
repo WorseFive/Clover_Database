@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https: http:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://166.88.98.215:8443; frame-src 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https: http:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://166.88.98.215; frame-src 'none';">
 <title>WorseFive's Space</title>
 <script src="https://cdn.jsdelivr.net/npm/pocketbase@0.22.0/dist/pocketbase.umd.min.js" crossorigin="anonymous"></script>
 <style>
@@ -283,14 +283,14 @@ function switchPage(page) {
 // ============================================================
 (function() {
   var pb = null;
-  var PB_URL = 'https://166.88.98.215:8443';
+  var PB_URL = 'https://166.88.98.215';
 
   try {
     if (typeof PocketBase === 'undefined') throw new Error('PocketBase SDK not loaded');
     pb = new PocketBase(PB_URL);
   } catch(e) {
     console.warn('PocketBase init failed:', e.message);
-    $('auth-card').innerHTML = '<div class="empty" style="padding:40px"><h3>⚠️ VPS 后端不可用</h3><p style="color:var(--text2);margin-top:8px">' + escapeHtml(e.message) + '</p><p style="font-size:12px;color:var(--text2);margin-top:4px">数据库管理功能不受影响</p></div>';
+    $('auth-card').innerHTML = '<div class="empty" style="padding:40px"><h3>⚠️ VPS 后端不可用</h3><p style="color:var(--text2);margin-top:8px">' + escapeHtml(e.message) + '</p><p style="font-size:13px;margin-top:12px"><b>解决方法：</b><br>1. <a href="https://166.88.98.215" target="_blank" style="color:var(--accent)">点击这里打开VPS</a> → 点"高级" → "继续访问"<br>2. 返回本页刷新即可</p><p style="font-size:12px;color:var(--text2);margin-top:4px">数据库管理功能不受影响</p></div>';
     return;
   }
 
@@ -447,7 +447,7 @@ function switchPage(page) {
       if (!resp.ok) throw new Error('Status ' + resp.status);
       if (pb.authStore.isValid) { showMain(); } else { showAuth(); }
     } catch(e) {
-      $('auth-card').innerHTML = '<div class="empty" style="padding:40px"><h3>⚠️ 无法连接 VPS</h3><p style="color:var(--text2);margin-top:8px">' + escapeHtml(e.message) + '</p><p style="font-size:12px;color:var(--text2);margin-top:4px">切换「🗄️ 数据库管理」仍可使用</p></div>';
+      $('auth-card').innerHTML = '<div class="empty" style="padding:40px"><h3>⚠️ 无法连接 VPS</h3><p style="color:var(--text2);margin-top:8px">' + escapeHtml(e.message) + '</p><p style="font-size:12px;color:var(--text2);margin-top:4px">首次使用需<a href="https://166.88.98.215" target="_blank" style="color:var(--accent)">打开VPS地址</a>并接受证书警告，之后刷新本页。切换「🗄️ 数据库管理」仍可使用</p></div>';
     }
   })();
 })();
