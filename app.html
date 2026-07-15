@@ -271,7 +271,12 @@ function switchPage(page) {
     b.classList.toggle('active', (page==='vps' && i===0) || (page==='database' && i===1));
   });
   if (page === 'database') initDBPage();
+  // Update URL hash
+  if (location.hash !== '#' + page) {
+    history.replaceState(null, '', '#' + page);
+  }
 }
+
 
 // ============================================================
 //  VPS PANEL (PocketBase - 独立try-catch不影响DB页)
@@ -721,6 +726,12 @@ function switchPage(page) {
     try { await loadDBOverview(); st.innerHTML = '<span style="color:var(--success)">✅ 已刷新</span>'; }
     catch(e) { st.innerHTML = '<span style="color:var(--danger)">❌ ' + escapeHtml(e.message) + '</span>'; }
   };
+})();
+
+// Hash-based routing: app.html#database or app.html#vps
+(function() {
+  var hash = location.hash.replace('#', '');
+  if (hash === 'database' || hash === 'vps') switchPage(hash);
 })();
 </script>
 </body>
