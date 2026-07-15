@@ -110,7 +110,8 @@ def rebuild_image_manifest(category: str, dirname: str, triggers: list[str], des
         "items": unique_items,
     }
 
-    manifest_path = img_dir / "manifest.json"
+    manifest_path = ROOT / "manifests" / f"{dirname}.json"
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
     with open(manifest_path, 'w', encoding='utf-8') as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
 
@@ -140,7 +141,8 @@ def rebuild_text_manifest(category: str, dirname: str, triggers: list[str], desc
         "triggers": triggers,
         "count": count,
     }
-    manifest_path = text_dir / "manifest.json"
+    manifest_path = ROOT / "manifests" / f"{dirname}.json"
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
     with open(manifest_path, 'w', encoding='utf-8') as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
 
