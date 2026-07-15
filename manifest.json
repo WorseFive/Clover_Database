@@ -15,7 +15,7 @@
           "v我50"
         ],
         "count": 278,
-        "manifest": "manifests/kfc.json"
+        "manifest": "texts/kfc/manifest.json"
       },
       "thunder_dragon": {
         "path": "texts/thunder_dragon",
@@ -27,7 +27,7 @@
           "电龙"
         ],
         "count": 82,
-        "manifest": "manifests/thunder_dragon.json"
+        "manifest": "texts/thunder_dragon/manifest.json"
       },
       "fadian": {
         "path": "texts/fadian",
@@ -36,7 +36,7 @@
           "发癫"
         ],
         "count": 52,
-        "manifest": "manifests/fadian.json"
+        "manifest": "texts/fadian/manifest.json"
       }
     },
     "images": {
@@ -50,7 +50,7 @@
           "🐖"
         ],
         "count": 1085,
-        "manifest": "manifests/pig.json"
+        "manifest": "images/pig/manifest.json"
       },
       "nailong": {
         "path": "images/nailong",
@@ -61,8 +61,8 @@
           "🥛🐲",
           "🥛🐉"
         ],
-        "count": 399,
-        "manifest": "manifests/nailong.json"
+        "count": 549,
+        "manifest": "images/nailong/manifest.json"
       },
       "otto": {
         "path": "images/otto",
@@ -75,8 +75,8 @@
           "炫狗",
           "张顺飞"
         ],
-        "count": 13,
-        "manifest": "manifests/otto.json"
+        "count": 1176,
+        "manifest": "images/otto/manifest.json"
       }
     }
   }

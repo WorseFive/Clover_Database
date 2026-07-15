@@ -23,13 +23,6 @@ Clover_Database/
 ├── docs/
 │   ├── README.md          # 本手册
 │   └── dev-log.md         # 开发日志
-├── manifests/              # 所有子目录索引(集中管理)
-│   ├── pig.json
-│   ├── nailong.json
-│   ├── otto.json
-│   ├── kfc.json
-│   ├── thunder_dragon.json
-│   └── fadian.json
 └── manifest.json          # 顶层索引
 ```
 
@@ -60,11 +53,9 @@ Clover_Database/
 
 每条记录必须有唯一 `id`，空文本 = 警告。
 
-### manifest 规范
+### manifest.json 规范
 
-所有子目录索引集中在 `manifests/` 目录下，与数据文件分离：
-- `manifests/pig.json`、`nailong.json`、`otto.json` — 图片索引
-- `manifests/kfc.json`、`thunder_dragon.json`、`fadian.json` — 文本索引
+每个子目录必须有 `manifest.json`，包含该目录下所有文件元信息：
 - `count` 必须与实际文件数一致
 - `items` 数组包含所有文件名，不能有孤儿文件或幽灵引用
 
