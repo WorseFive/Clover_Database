@@ -78,7 +78,12 @@ def rebuild_image_manifest(category: str, dirname: str, triggers: list[str], des
             if not correct_path.exists():
                 f.rename(correct_path)
                 print(f"  🔧 重命名: {f.name} → {correct_name}")
-            f = correct_path
+                f = correct_path
+            else:
+                # 正确扩展名文件已存在，删除当前文件（重复）
+                f.unlink()
+                print(f"  🗑️ 删除重复: {f.name} (→ {correct_name} 已存在)")
+                continue
 
         items.append({
             "filename": f.name,
@@ -87,14 +92,22 @@ def rebuild_image_manifest(category: str, dirname: str, triggers: list[str], des
         })
         total_size += size
 
+    # 去重
+    seen = set()
+    unique_items = []
+    for item in items:
+        if item["filename"] not in seen:
+            seen.add(item["filename"])
+            unique_items.append(item)
+
     manifest = {
         "category": category,
         "description": description,
         "triggers": triggers,
-        "count": len(items),
+        "count": len(unique_items),
         "total_size": total_size,
         "total_size_mb": round(total_size / 1024 / 1024, 2),
-        "items": items,
+        "items": unique_items,
     }
 
     manifest_path = img_dir / "manifest.json"
