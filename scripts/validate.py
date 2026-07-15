@@ -166,11 +166,11 @@ class Validator:
     def validate_text_dir(self, dirpath: Path, category: str):
         """验证文本目录"""
         quotes_file = dirpath / "quotes.json"
-        manifest_file = dirpath / "manifest.json"
+        manifest_file = ROOT / "manifests" / f"{category}.json"
 
-        # manifest.json 存在且有效
+        # manifest 存在且有效
         if not manifest_file.exists():
-            self.error(f"[{category}] 缺少 manifest.json")
+            self.error(f"[{category}] 缺少 manifests/{category}.json")
             return
         manifest = self._load_json(manifest_file, category)
         if manifest is None:
@@ -222,10 +222,10 @@ class Validator:
 
     def validate_image_dir(self, dirpath: Path, category: str):
         """验证图片目录"""
-        manifest_file = dirpath / "manifest.json"
+        manifest_file = ROOT / "manifests" / f"{category}.json"
 
         if not manifest_file.exists():
-            self.error(f"[{category}] 缺少 manifest.json")
+            self.error(f"[{category}] 缺少 manifests/{category}.json")
             return
         manifest = self._load_json(manifest_file, category)
         if manifest is None:
