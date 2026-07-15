@@ -1,6 +1,7 @@
 {
   "category": "otto",
   "description": "电棍/otto表情包",
+  "semantic": false,
   "triggers": [
     "动物园",
     "电棍",
@@ -14,69 +15,69 @@
   "total_size_mb": 0.58,
   "items": [
     {
-      "filename": "0eee37290a06df41e6ef4c51a1d313bd.jpg",
-      "title": "0eee37290a06df41e6ef4c51a1d313bd",
-      "size": 67861
-    },
-    {
-      "filename": "0f65862ecf3c81b3c9dc650a3526e331.jpg",
-      "title": "0f65862ecf3c81b3c9dc650a3526e331",
-      "size": 47300
-    },
-    {
-      "filename": "2224f53591002b444a30cfd058baaf54.jpg",
-      "title": "2224f53591002b444a30cfd058baaf54",
-      "size": 41191
-    },
-    {
-      "filename": "238d73cb9fbdf6c915e024fe39b07d9a.jpg",
-      "title": "238d73cb9fbdf6c915e024fe39b07d9a",
-      "size": 25434
-    },
-    {
-      "filename": "2871e21d8fec493d98e5511c2d322d00.jpg",
-      "title": "2871e21d8fec493d98e5511c2d322d00",
-      "size": 24754
-    },
-    {
-      "filename": "2fbae6d29121b451da3602fe189ea981.jpg",
-      "title": "2fbae6d29121b451da3602fe189ea981",
-      "size": 92491
-    },
-    {
-      "filename": "30905719ae928d7a288dd53eac068e9f.jpg",
-      "title": "30905719ae928d7a288dd53eac068e9f",
-      "size": 6215
-    },
-    {
-      "filename": "3c158cb754b1c082cec41661a27c895b.jpg",
-      "title": "3c158cb754b1c082cec41661a27c895b",
-      "size": 107543
-    },
-    {
-      "filename": "4f383be5de9611785d9d429c58950dec.jpg",
-      "title": "4f383be5de9611785d9d429c58950dec",
-      "size": 55742
-    },
-    {
-      "filename": "524da4a68a03028b83fce4c1803cced4.jpg",
-      "title": "524da4a68a03028b83fce4c1803cced4",
+      "filename": "九宫格电棍.jpg",
+      "title": "九宫格电棍",
       "size": 37718
     },
     {
-      "filename": "684c17ce1d7f913e4b0ab9abf9c73ef7.jpg",
-      "title": "684c17ce1d7f913e4b0ab9abf9c73ef7",
-      "size": 7152
+      "filename": "亚托莉电棍.jpg",
+      "title": "亚托莉电棍",
+      "size": 92491
     },
     {
-      "filename": "72011221f33432f93fb51c8787775260.jpg",
-      "title": "72011221f33432f93fb51c8787775260",
+      "filename": "凹凸镜电棍.jpg",
+      "title": "凹凸镜电棍",
+      "size": 107543
+    },
+    {
+      "filename": "唐笑电棍.jpg",
+      "title": "唐笑电棍",
+      "size": 6215
+    },
+    {
+      "filename": "女装电棍.jpg",
+      "title": "女装电棍",
+      "size": 25434
+    },
+    {
+      "filename": "急眼电棍.jpg",
+      "title": "急眼电棍",
+      "size": 24754
+    },
+    {
+      "filename": "抑郁症电棍.jpg",
+      "title": "抑郁症电棍",
+      "size": 26573
+    },
+    {
+      "filename": "报复社会炫狗.jpg",
+      "title": "报复社会炫狗",
       "size": 68652
     },
     {
-      "filename": "83880514ea6fa9e0bb9e8f995344a564.jpg",
-      "title": "83880514ea6fa9e0bb9e8f995344a564",
-      "size": 26573
+      "filename": "报复社会电棍.jpg",
+      "title": "报复社会电棍",
+      "size": 41191
+    },
+    {
+      "filename": "海报电棍.jpg",
+      "title": "海报电棍",
+      "size": 47300
+    },
+    {
+      "filename": "螺旋丸电棍.jpg",
+      "title": "螺旋丸电棍",
+      "size": 7152
+    },
+    {
+      "filename": "身残志坚电棍.jpg",
+      "title": "身残志坚电棍",
+      "size": 67861
+    },
+    {
+      "filename": "食人电棍.jpg",
+      "title": "食人电棍",
+      "size": 55742
     }
   ]
 }

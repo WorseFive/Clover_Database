@@ -1,6 +1,7 @@
 {
   "category": "fadian",
   "description": "发癫文学文案",
+  "semantic": true,
   "triggers": [
     "发癫"
   ],

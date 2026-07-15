@@ -1,6 +1,7 @@
 {
   "category": "thunder_dragon",
   "description": "雷电飞龙/部落冲突文案",
+  "semantic": true,
   "triggers": [
     "部落冲突",
     "雷电飞龙",

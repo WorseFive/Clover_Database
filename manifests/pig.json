@@ -1,6 +1,7 @@
 {
   "category": "pig",
   "description": "猪猪图片 (来源: pighub.top)",
+  "semantic": true,
   "triggers": [
     "猪",
     "🐷",

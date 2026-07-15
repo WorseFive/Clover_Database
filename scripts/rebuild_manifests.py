@@ -14,6 +14,13 @@ if sys.platform == 'win32':
 ROOT = Path(__file__).parent.parent
 ALLOWED_IMAGE_EXTS = {'.jpg', '.jpeg', '.png', '.gif'}
 
+# 语义匹配开关: 文件名/文案有语义的分类=True, 随机乱串文件名=False
+# (reply 插件 /kfc <词> 语义检索按此字段判断, False 时退化为随机)
+SEMANTIC = {
+    'kfc': True, 'thunder_dragon': True, 'fadian': True,
+    'pig': True, 'nailong': False, 'otto': False,
+}
+
 MAGIC_BYTES = {
     b'\xff\xd8\xff': 'jpg',
     b'\x89PNG\r\n\x1a\n': 'png',
@@ -103,6 +110,7 @@ def rebuild_image_manifest(category: str, dirname: str, triggers: list[str], des
     manifest = {
         "category": category,
         "description": description,
+        "semantic": SEMANTIC.get(category, False),
         "triggers": triggers,
         "count": len(unique_items),
         "total_size": total_size,
@@ -138,6 +146,7 @@ def rebuild_text_manifest(category: str, dirname: str, triggers: list[str], desc
     manifest = {
         "category": category,
         "description": description,
+        "semantic": SEMANTIC.get(category, True),
         "triggers": triggers,
         "count": count,
     }

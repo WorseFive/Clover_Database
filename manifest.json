@@ -7,6 +7,7 @@
       "kfc": {
         "path": "texts/kfc",
         "description": "疯狂星期四/KFC文案",
+        "semantic": true,
         "triggers": [
           "疯狂星期四",
           "肯德基",
@@ -20,6 +21,7 @@
       "thunder_dragon": {
         "path": "texts/thunder_dragon",
         "description": "雷电飞龙/部落冲突文案",
+        "semantic": true,
         "triggers": [
           "部落冲突",
           "雷电飞龙",
@@ -32,6 +34,7 @@
       "fadian": {
         "path": "texts/fadian",
         "description": "发癫文学文案",
+        "semantic": true,
         "triggers": [
           "发癫"
         ],
@@ -43,6 +46,7 @@
       "pig": {
         "path": "images/pig",
         "description": "猪猪图片",
+        "semantic": true,
         "triggers": [
           "猪",
           "🐷",
@@ -55,18 +59,20 @@
       "nailong": {
         "path": "images/nailong",
         "description": "奶龙图片",
+        "semantic": false,
         "triggers": [
           "奶龙",
           "奶蛙",
           "🥛🐲",
           "🥛🐉"
         ],
-        "count": 549,
+        "count": 127,
         "manifest": "images/nailong/manifest.json"
       },
       "otto": {
         "path": "images/otto",
         "description": "电棍/otto表情包",
+        "semantic": false,
         "triggers": [
           "动物园",
           "电棍",
