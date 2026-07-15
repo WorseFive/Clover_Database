@@ -3,8 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; img-src 'self' data: https: http:; style-src 'self' 'unsafe-inline'; connect-src 'self' https://api.github.com https://raw.githubusercontent.com http://166.88.98.215:8090; frame-src 'none';">
 <title>WorseFive's Space - 互动空间</title>
-<script src="https://cdn.jsdelivr.net/npm/pocketbase@0.22.0/dist/pocketbase.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pocketbase@0.22.0/dist/pocketbase.umd.min.js" crossorigin="anonymous"></script>
 <style>
 :root {
   --bg: #f8fafc; --card: #ffffff; --text: #1e293b;
@@ -423,7 +424,7 @@ async function loadTweets() {
           </div>
         </div>`;
     }
-  } catch(e) { container.innerHTML = '<div class="empty">加载失败: '+e.message+'</div>'; }
+  } catch(e) { container.innerHTML = '<div class="empty">加载失败: '+safeError(e.message)+'</div>'; }
 }
 
 async function postTweet() {
@@ -486,7 +487,7 @@ async function loadFiles() {
           <a href="${fileUrl}" target="_blank" class="btn btn-primary btn-sm" onclick="recordDownload('${f.id}', ${f.downloads||0})">⬇ 下载</a>
         </div>`;
     }
-  } catch(e) { container.innerHTML = '<div class="empty">加载失败: '+e.message+'</div>'; }
+  } catch(e) { container.innerHTML = '<div class="empty">加载失败: '+safeError(e.message)+'</div>'; }
 }
 
 async function uploadFile() {
@@ -520,9 +521,15 @@ async function recordDownload(id, current) {
 
 // ===== Helpers =====
 function escapeHtml(text) {
-  const div = document.createElement('div');
+  if (!text) return '';
+  var div = document.createElement('div');
   div.textContent = text;
   return div.innerHTML;
+}
+
+// 安全地显示错误消息（防止XSS via error message）
+function safeError(msg) {
+  return escapeHtml(String(msg).slice(0, 200));
 }
 function previewComposeImage(e) {
   const file = e.target.files[0];
@@ -683,7 +690,7 @@ async function loadDBOverview() {
     }
     overview.innerHTML = html;
   } catch(e) {
-    overview.innerHTML = '<div class="empty" style="grid-column:1/-1">加载失败: ' + e.message + '</div>';
+    overview.innerHTML = '<div class="empty" style="grid-column:1/-1">加载失败: ' + safeError(e.message) + '</div>';
   }
 }
 
@@ -850,7 +857,7 @@ async function browseImages() {
       grid.appendChild(div);
     }
   } catch(e) {
-    grid.innerHTML = '<div class="empty">加载失败: ' + e.message + '</div>';
+    grid.innerHTML = '<div class="empty">加载失败: ' + safeError(e.message) + '</div>';
   }
 }
 
