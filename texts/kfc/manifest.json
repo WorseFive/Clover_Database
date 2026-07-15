@@ -1,7 +1,12 @@
 {
   "category": "kfc",
   "description": "疯狂星期四/KFC文案",
-  "triggers": ["疯狂星期四", "肯德基", "KFC", "kfc", "v我50"],
-  "count": 0,
-  "items": []
+  "triggers": [
+    "疯狂星期四",
+    "肯德基",
+    "KFC",
+    "kfc",
+    "v我50"
+  ],
+  "count": 278
 }

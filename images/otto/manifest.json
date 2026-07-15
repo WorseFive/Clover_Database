@@ -1,7 +1,97 @@
 {
   "category": "otto",
   "description": "电棍/otto表情包",
-  "triggers": ["动物园", "电棍", "otto", "侯国玉", "炫狗", "张顺飞"],
-  "count": 0,
-  "items": []
+  "triggers": [
+    "动物园",
+    "电棍",
+    "otto",
+    "侯国玉",
+    "炫狗",
+    "张顺飞"
+  ],
+  "count": 16,
+  "total_size": 814752,
+  "total_size_mb": 0.78,
+  "items": [
+    {
+      "filename": "090811c8197d115484bcb1d666fa371a.jpg",
+      "title": "090811c8197d115484bcb1d666fa371a",
+      "size": 79544
+    },
+    {
+      "filename": "0f65862ecf3c81b3c9dc650a3526e331.jpg",
+      "title": "0f65862ecf3c81b3c9dc650a3526e331",
+      "size": 47300
+    },
+    {
+      "filename": "2224f53591002b444a30cfd058baaf54.jpg",
+      "title": "2224f53591002b444a30cfd058baaf54",
+      "size": 41191
+    },
+    {
+      "filename": "2871e21d8fec493d98e5511c2d322d00.jpg",
+      "title": "2871e21d8fec493d98e5511c2d322d00",
+      "size": 24754
+    },
+    {
+      "filename": "2fbae6d29121b451da3602fe189ea981.jpg",
+      "title": "2fbae6d29121b451da3602fe189ea981",
+      "size": 92491
+    },
+    {
+      "filename": "30905719ae928d7a288dd53eac068e9f.jpg",
+      "title": "30905719ae928d7a288dd53eac068e9f",
+      "size": 6215
+    },
+    {
+      "filename": "3c158cb754b1c082cec41661a27c895b.jpg",
+      "title": "3c158cb754b1c082cec41661a27c895b",
+      "size": 107543
+    },
+    {
+      "filename": "4f383be5de9611785d9d429c58950dec.jpg",
+      "title": "4f383be5de9611785d9d429c58950dec",
+      "size": 55742
+    },
+    {
+      "filename": "524da4a68a03028b83fce4c1803cced4.jpg",
+      "title": "524da4a68a03028b83fce4c1803cced4",
+      "size": 37718
+    },
+    {
+      "filename": "684c17ce1d7f913e4b0ab9abf9c73ef7.jpg",
+      "title": "684c17ce1d7f913e4b0ab9abf9c73ef7",
+      "size": 7152
+    },
+    {
+      "filename": "72011221f33432f93fb51c8787775260.jpg",
+      "title": "72011221f33432f93fb51c8787775260",
+      "size": 68652
+    },
+    {
+      "filename": "83880514ea6fa9e0bb9e8f995344a564.jpg",
+      "title": "83880514ea6fa9e0bb9e8f995344a564",
+      "size": 26573
+    },
+    {
+      "filename": "ce55a6a59861383e59f5531dab289c11.png",
+      "title": "ce55a6a59861383e59f5531dab289c11",
+      "size": 36632
+    },
+    {
+      "filename": "cf852d23e990222579c26ed20bf5bf3f.jpg",
+      "title": "cf852d23e990222579c26ed20bf5bf3f",
+      "size": 60044
+    },
+    {
+      "filename": "de4a9ab81e135aa9ba95a337e3ab087f.jpg",
+      "title": "de4a9ab81e135aa9ba95a337e3ab087f",
+      "size": 26863
+    },
+    {
+      "filename": "fbcbca191a2b20aabe92bb0f9a411d95.jpg",
+      "title": "fbcbca191a2b20aabe92bb0f9a411d95",
+      "size": 96338
+    }
+  ]
 }

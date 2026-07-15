@@ -7,22 +7,35 @@
       "kfc": {
         "path": "texts/kfc",
         "description": "疯狂星期四/KFC文案",
-        "triggers": ["疯狂星期四", "肯德基", "KFC", "kfc", "v我50"],
-        "count": 0,
+        "triggers": [
+          "疯狂星期四",
+          "肯德基",
+          "KFC",
+          "kfc",
+          "v我50"
+        ],
+        "count": 278,
         "manifest": "texts/kfc/manifest.json"
       },
       "thunder_dragon": {
         "path": "texts/thunder_dragon",
         "description": "雷电飞龙/部落冲突文案",
-        "triggers": ["部落冲突", "雷电飞龙", "雷龙", "电龙"],
-        "count": 0,
+        "triggers": [
+          "部落冲突",
+          "雷电飞龙",
+          "雷龙",
+          "电龙"
+        ],
+        "count": 82,
         "manifest": "texts/thunder_dragon/manifest.json"
       },
       "fadian": {
         "path": "texts/fadian",
         "description": "发癫文学文案",
-        "triggers": ["发癫"],
-        "count": 0,
+        "triggers": [
+          "发癫"
+        ],
+        "count": 52,
         "manifest": "texts/fadian/manifest.json"
       }
     },
@@ -30,22 +43,39 @@
       "pig": {
         "path": "images/pig",
         "description": "猪猪图片",
-        "triggers": ["猪", "🐷", "🐽", "🐖"],
-        "count": 0,
+        "triggers": [
+          "猪",
+          "🐷",
+          "🐽",
+          "🐖"
+        ],
+        "count": 1085,
         "manifest": "images/pig/manifest.json"
       },
       "nailong": {
         "path": "images/nailong",
         "description": "奶龙图片",
-        "triggers": ["奶龙", "奶蛙", "🥛🐲", "🥛🐉"],
-        "count": 0,
+        "triggers": [
+          "奶龙",
+          "奶蛙",
+          "🥛🐲",
+          "🥛🐉"
+        ],
+        "count": 35,
         "manifest": "images/nailong/manifest.json"
       },
       "otto": {
         "path": "images/otto",
         "description": "电棍/otto表情包",
-        "triggers": ["动物园", "电棍", "otto", "侯国玉", "炫狗", "张顺飞"],
-        "count": 0,
+        "triggers": [
+          "动物园",
+          "电棍",
+          "otto",
+          "侯国玉",
+          "炫狗",
+          "张顺飞"
+        ],
+        "count": 16,
         "manifest": "images/otto/manifest.json"
       }
     }

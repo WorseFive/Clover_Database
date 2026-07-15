@@ -1,7 +1,11 @@
 {
   "category": "thunder_dragon",
   "description": "雷电飞龙/部落冲突文案",
-  "triggers": ["部落冲突", "雷电飞龙", "雷龙", "电龙"],
-  "count": 0,
-  "items": []
+  "triggers": [
+    "部落冲突",
+    "雷电飞龙",
+    "雷龙",
+    "电龙"
+  ],
+  "count": 82
 }
