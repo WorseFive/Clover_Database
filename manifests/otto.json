@@ -2,6 +2,7 @@
   "category": "otto",
   "description": "电棍/otto表情包",
   "semantic": false,
+  "match_mode": "contains",
   "triggers": [
     "动物园",
     "电棍",

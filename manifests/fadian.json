@@ -2,6 +2,7 @@
   "category": "fadian",
   "description": "发癫文学文案",
   "semantic": true,
+  "match_mode": "contains",
   "triggers": [
     "发癫"
   ],

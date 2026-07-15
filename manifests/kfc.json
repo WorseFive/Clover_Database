@@ -2,6 +2,7 @@
   "category": "kfc",
   "description": "疯狂星期四/KFC文案",
   "semantic": true,
+  "match_mode": "contains",
   "triggers": [
     "疯狂星期四",
     "肯德基",

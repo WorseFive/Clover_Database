@@ -2,6 +2,7 @@
   "category": "nailong",
   "description": "奶龙图片",
   "semantic": false,
+  "match_mode": "contains",
   "triggers": [
     "奶龙",
     "奶蛙",

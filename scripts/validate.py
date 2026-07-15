@@ -38,6 +38,26 @@ MEANINGFUL_PATTERN = re.compile(r'[一-鿿\w]')
 TEXT_CATEGORIES = {"kfc", "thunder_dragon", "fadian"}
 IMAGE_CATEGORIES = {"pig", "nailong", "otto"}
 
+VALID_MATCH_MODES = {"contains", "exact"}
+
+
+def discover_categories() -> tuple[set, set]:
+    """动态发现分类（v2, 配合用户自建分类）：
+    texts/<cat>/quotes.json 存在 → 文本类；images/<cat>/ 存在 → 图片类。
+    内置6类兜底。"""
+    texts = set(TEXT_CATEGORIES)
+    images = set(IMAGE_CATEGORIES)
+    tdir, idir = ROOT / "texts", ROOT / "images"
+    if tdir.is_dir():
+        for d in tdir.iterdir():
+            if d.is_dir() and (d / "quotes.json").exists():
+                texts.add(d.name)
+    if idir.is_dir():
+        for d in idir.iterdir():
+            if d.is_dir() and d.name != "old":
+                images.add(d.name)
+    return texts, images
+
 # ══════════════════════════════════════════
 # 图片魔法字节
 # ══════════════════════════════════════════
@@ -96,19 +116,15 @@ class Validator:
     # ── 文件名验证 ──────────────────────
 
     def validate_filename(self, filepath: Path, category: str) -> bool:
-        """验证单个文件名是否规范"""
+        """验证单个文件名是否规范（仅在图片目录上下文调用；
+        v2: 不再依赖硬编码分类集合，动态分类同样校验）"""
         name = filepath.name
 
-        # 检查扩展名
+        # 检查扩展名（图片目录一律按图片规则）
         ext = filepath.suffix.lower()
-        if category in IMAGE_CATEGORIES:
-            if ext not in ALLOWED_IMAGE_EXTENSIONS:
-                self.error(f"[{category}] 不允许的图片格式: {name} (仅允许 jpg/jpeg/png/gif)")
-                return False
-        elif category in TEXT_CATEGORIES:
-            if ext != '.json':
-                self.error(f"[{category}] 文本文件必须是JSON: {name}")
-                return False
+        if ext != '.json' and ext not in ALLOWED_IMAGE_EXTENSIONS:
+            self.error(f"[{category}] 不允许的图片格式: {name} (仅允许 jpg/jpeg/png/gif)")
+            return False
 
         # 文件名长度
         if len(name) > MAX_FILENAME_LEN:
@@ -322,9 +338,48 @@ class Validator:
         # 验证顶层 manifest
         self.validate_root_manifest()
 
+        # 动态发现全部分类（内置 + 用户自建）
+        text_cats, image_cats = discover_categories()
+
+        # 验证分类 manifest 的 match_mode/semantic 字段合法性
+        print("\n🏷️ manifest 字段验证:")
+        mdir = ROOT / "manifests"
+        index_cats = []
+        if (mdir / "_index.json").exists():
+            try:
+                index_cats = json.loads(
+                    (mdir / "_index.json").read_text(encoding='utf-8')
+                ).get("categories", [])
+                self.ok()
+            except json.JSONDecodeError as e:
+                self.error(f"[_index] JSON 解析失败: {e}")
+        for cat in sorted(text_cats | image_cats):
+            mpath = mdir / f"{cat}.json"
+            if not mpath.exists():
+                self.error(f"[{cat}] manifest 缺失: manifests/{cat}.json")
+                continue
+            try:
+                m = json.loads(mpath.read_text(encoding='utf-8'))
+            except json.JSONDecodeError as e:
+                self.error(f"[{cat}] manifest JSON 解析失败: {e}")
+                continue
+            mode = m.get("match_mode", "contains")
+            if mode not in VALID_MATCH_MODES:
+                self.error(f"[{cat}] match_mode 非法: {mode!r} (仅允许 contains/exact)")
+            else:
+                self.ok()
+            if not isinstance(m.get("semantic", False), bool):
+                self.error(f"[{cat}] semantic 必须是布尔值: {m.get('semantic')!r}")
+            else:
+                self.ok()
+            if not m.get("triggers"):
+                self.warn(f"[{cat}] 无触发词（自动回复不会触发）")
+            if index_cats and cat not in index_cats:
+                self.error(f"[{cat}] 未登记到 manifests/_index.json")
+
         # 验证文本目录
         print("\n📝 文本类验证:")
-        for cat in sorted(TEXT_CATEGORIES):
+        for cat in sorted(text_cats):
             dirpath = ROOT / "texts" / cat
             if dirpath.exists():
                 self.validate_text_dir(dirpath, cat)
@@ -333,7 +388,7 @@ class Validator:
 
         # 验证图片目录
         print("\n🖼️ 图片类验证:")
-        for cat in sorted(IMAGE_CATEGORIES):
+        for cat in sorted(image_cats):
             dirpath = ROOT / "images" / cat
             if dirpath.exists():
                 self.validate_image_dir(dirpath, cat)
