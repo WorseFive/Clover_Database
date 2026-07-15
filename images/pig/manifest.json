@@ -1,0 +1,8 @@
+{
+  "category": "pig",
+  "description": "猪猪图片",
+  "source": "pighub.top",
+  "triggers": ["猪", "🐷", "🐽", "🐖"],
+  "count": 0,
+  "items": []
+}
