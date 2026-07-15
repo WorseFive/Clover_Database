@@ -93,84 +93,24 @@ textarea.input { resize: vertical; min-height: 80px; }
 <!-- ========== PAGE 1: VPS面板 ========== -->
 <div id="page-vps">
 
-  <div id="auth-card" class="card">
-    <div class="tab-bar">
-      <button class="tab active" onclick="switchTab('login')">登录</button>
-      <button class="tab" onclick="switchTab('register')">注册</button>
-    </div>
-    <div id="login-form">
-      <input class="input" type="email" id="login-email" placeholder="邮箱地址">
-      <input class="input" type="password" id="login-password" placeholder="密码">
-      <button class="btn btn-primary" onclick="login()" style="width:100%">登 录</button>
-    </div>
-    <div id="register-form" class="hidden">
-      <input class="input" id="reg-name" placeholder="昵称">
-      <input class="input" type="email" id="reg-email" placeholder="邮箱地址">
-      <input class="input" type="password" id="reg-password" placeholder="密码 (8位以上)">
-      <input class="input" type="password" id="reg-password2" placeholder="确认密码">
-      <button class="btn btn-primary" onclick="register()" style="width:100%">注 册</button>
-    </div>
+  <div class="card">
+    <div class="section-title">🖥️ VPS 状态</div>
+    <div id="vps-status"><div class="empty">检测中...</div></div>
   </div>
 
-  <div id="main-content" class="hidden">
-    <div class="card flex-between">
-      <div class="flex">
-        <div class="avatar" id="user-avatar">U</div>
-        <div><div style="font-weight:600" id="user-name">User</div><div style="font-size:12px;color:var(--text2)" id="user-email">email</div></div>
-      </div>
-      <button class="btn btn-outline btn-sm" onclick="logout()">退出</button>
-    </div>
+  <div id="main-content">
     <div class="tab-bar">
       <button class="tab active" onclick="switchMainTab('tweets')">📝 动态</button>
-      <button class="tab" onclick="switchMainTab('compose')">✍️ 发推</button>
       <button class="tab" onclick="switchMainTab('files')">📁 文件</button>
-      <button class="tab" onclick="switchMainTab('upload')">📤 上传</button>
     </div>
     <div id="tweets-tab"><div class="section-title">最新动态</div><div id="tweets-list"><div class="empty">加载中...</div></div></div>
-    <div id="compose-tab" class="hidden">
-      <div class="card">
-        <div class="section-title">发布新动态</div>
-        <textarea class="input" id="compose-content" placeholder="分享你的想法... (最多500字)" maxlength="500"></textarea>
-        <input class="input" id="compose-tags" placeholder="标签 (用逗号分隔)">
-        <div class="flex-between">
-          <div class="flex">
-            <button class="btn btn-outline btn-sm" onclick="document.getElementById('compose-image').click()">📷 图片</button>
-            <input type="file" id="compose-image" accept="image/*" style="display:none" onchange="previewComposeImage(event)">
-          </div>
-          <button class="btn btn-primary" onclick="postTweet()">发布 🚀</button>
-        </div>
-        <img id="compose-preview" class="file-preview hidden">
-      </div>
-    </div>
     <div id="files-tab" class="hidden"><div class="card"><div class="section-title">文件分享</div><div id="files-list"><div class="empty">加载中...</div></div></div></div>
-    <div id="upload-tab" class="hidden">
-      <div class="card">
-        <div class="section-title">上传文件</div>
-        <input class="input" id="upload-title" placeholder="文件标题">
-        <textarea class="input" id="upload-desc" placeholder="文件描述 (可选)" style="min-height:60px"></textarea>
-        <select class="input" id="upload-category">
-          <option value="document">📄 文档</option><option value="image">🖼️ 图片</option><option value="video">🎬 视频</option><option value="music">🎵 音乐</option><option value="archive">📦 压缩包</option><option value="other">📌 其他</option>
-        </select>
-        <input type="file" id="upload-file-input" style="margin-bottom:10px">
-        <button class="btn btn-primary" onclick="uploadFile()" style="width:100%">上传文件</button>
-        <div id="upload-progress" class="hidden"><div style="width:0%;height:4px;background:var(--accent);border-radius:2px;transition:width .3s"></div></div>
-      </div>
-    </div>
   </div>
 </div><!-- end #page-vps -->
 
 <!-- ========== PAGE 2: 数据库管理 ========== -->
 <div id="page-database" class="hidden">
 
-  <div class="card">
-    <div class="section-title">🔑 GitHub Token</div>
-    <p style="font-size:13px;color:var(--text2);margin-bottom:10px">需要 <a href="https://github.com/settings/tokens" target="_blank">GitHub Token</a>（勾选 <b>public_repo</b>）来操作 Clover_Database 仓库。</p>
-    <div class="flex">
-      <input class="input" type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="margin-bottom:0">
-      <button class="btn btn-primary" onclick="saveGHToken()">保存</button>
-    </div>
-    <div id="gh-token-status" style="font-size:12px;margin-top:6px"></div>
-  </div>
 
   <div class="card">
     <div class="section-title">📊 数据概览</div>
@@ -279,77 +219,17 @@ function switchPage(page) {
 
 
 // ============================================================
-//  VPS PANEL (PocketBase - 独立try-catch不影响DB页)
+//  VPS PANEL (同源，无需登录)
 // ============================================================
 (function() {
-  var pb = null;
   var PB_URL = 'https://166.88.98.215';
-
-  try {
-    if (typeof PocketBase === 'undefined') throw new Error('PocketBase SDK not loaded');
-    pb = new PocketBase(PB_URL);
-  } catch(e) {
-    console.warn('PocketBase init failed:', e.message);
-    $('auth-card').innerHTML = '<div class="empty" style="padding:40px"><h3>⚠️ VPS 后端不可用</h3><p style="color:var(--text2);margin-top:8px">' + escapeHtml(e.message) + '</p><p style="font-size:13px;margin-top:12px"><b>解决方法：</b><br>1. <a href="https://166.88.98.215" target="_blank" style="color:var(--accent)">点击这里打开VPS</a> → 点"高级" → "继续访问"<br>2. 返回本页刷新即可</p><p style="font-size:12px;color:var(--text2);margin-top:4px">数据库管理功能不受影响</p></div>';
-    return;
-  }
-
-  // Auth
-  window.switchTab = function(tab) {
-    $('login-form').classList.toggle('hidden', tab !== 'login');
-    $('register-form').classList.toggle('hidden', tab !== 'register');
-    document.querySelectorAll('#auth-card .tab').forEach(function(t, i) { t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1)); });
-  };
-
-  window.login = async function() {
-    var email = $('login-email').value.trim();
-    var pwd = $('login-password').value;
-    if (!email || !pwd) return alert('请填写邮箱和密码');
-    try {
-      await pb.collection('users').authWithPassword(email, pwd);
-      showMain();
-    } catch(e) {
-      var msg = e.response ? (e.response.message || e.response.code) : e.message;
-      alert('登录失败: ' + msg);
-    }
-  };
-
-  window.register = async function() {
-    var name = $('reg-name').value.trim();
-    var email = $('reg-email').value.trim();
-    var pwd = $('reg-password').value;
-    var pwd2 = $('reg-password2').value;
-    if (!name) return alert('请输入昵称');
-    if (!email) return alert('请输入邮箱');
-    if (pwd !== pwd2) return alert('两次密码不一致');
-    if (pwd.length < 8) return alert('密码至少8位');
-    try {
-      await pb.collection('users').create({ name:name, email:email, password:pwd, passwordConfirm:pwd });
-      await pb.collection('users').authWithPassword(email, pwd);
-      showMain();
-    } catch(e) {
-      var data = e.response ? e.response.data : {};
-      var msgs = Object.keys(data).map(function(k) { return k + ': ' + (data[k].message || data[k].code); });
-      alert('注册失败: ' + (msgs.length ? msgs.join('\n') : (e.message || '未知错误')));
-    }
-  };
-
-  window.logout = function() { pb.authStore.clear(); showAuth(); };
-
-  function showAuth() { $('auth-card').classList.remove('hidden'); $('main-content').classList.add('hidden'); }
-  function showMain() {
-    $('auth-card').classList.add('hidden'); $('main-content').classList.remove('hidden');
-    var u = pb.authStore.model;
-    $('user-name').textContent = u.name || u.email.split('@')[0];
-    $('user-email').textContent = u.email;
-    $('user-avatar').textContent = (u.name || u.email)[0].toUpperCase();
-    loadTweets();
-  }
+  var pb = null;
+  try { if (typeof PocketBase !== 'undefined') pb = new PocketBase(PB_URL); } catch(e) {}
 
   window.switchMainTab = function(tab) {
-    ['tweets','compose','files','upload'].forEach(function(t) { $(t+'-tab').classList.toggle('hidden', t !== tab); });
+    ['tweets','files'].forEach(function(t) { $(t+'-tab').classList.toggle('hidden', t !== tab); });
     document.querySelectorAll('#main-content .tab-bar .tab').forEach(function(t, i) {
-      var tabs = ['tweets','compose','files','upload'];
+      var tabs = ['tweets','files'];
       t.classList.toggle('active', tabs[i] === tab);
     });
     if (tab === 'tweets') loadTweets();
@@ -358,6 +238,7 @@ function switchPage(page) {
 
   async function loadTweets() {
     var c = $('tweets-list');
+    if (!pb) { c.innerHTML = '<div class="empty">PocketBase 未连接</div>'; return; }
     try {
       var records = await pb.collection('tweets').getList(1, 30, { sort: '-created', expand: 'author' });
       if (!records.items.length) { c.innerHTML = '<div class="empty">还没有动态</div>'; return; }
@@ -367,40 +248,14 @@ function switchPage(page) {
         var time = new Date(t.created).toLocaleString('zh-CN');
         var imgHtml = t.image ? '<img class="tweet-image" src="' + PB_URL + '/api/files/tweets/' + t.id + '/' + t.image + '" alt="image">' : '';
         var tagsHtml = t.tags ? '<div class="tweet-tags">' + t.tags.split(',').map(function(tag) { return '<span class="tag">' + escapeHtml(tag.trim()) + '</span>'; }).join('') + '</div>' : '';
-        c.innerHTML += '<div class="tweet"><div class="tweet-header"><div class="avatar">' + ((author&&author.name)||(author&&author.email)||'?')[0].toUpperCase() + '</div><div><div class="tweet-name">' + escapeHtml((author&&author.name)||(author&&author.email&&author.email.split('@')[0])||'匿名') + '</div><div class="tweet-time">' + time + '</div></div></div>' + tagsHtml + '<div class="tweet-content">' + escapeHtml(t.content) + '</div>' + imgHtml + '<div class="tweet-actions"><span onclick="likeTweet(\'' + t.id + '\')">❤️ ' + (t.likes_count||0) + '</span></div></div>';
+        c.innerHTML += '<div class="tweet"><div class="tweet-header"><div class="avatar">' + ((author&&author.name)||(author&&author.email)||'?')[0].toUpperCase() + '</div><div><div class="tweet-name">' + escapeHtml((author&&author.name)||(author&&author.email&&author.email.split('@')[0])||'匿名') + '</div><div class="tweet-time">' + time + '</div></div></div>' + tagsHtml + '<div class="tweet-content">' + escapeHtml(t.content) + '</div>' + imgHtml + '<div class="tweet-actions"><span>❤️ ' + (t.likes_count||0) + '</span></div></div>';
       });
     } catch(e) { c.innerHTML = '<div class="empty">加载失败: ' + escapeHtml(e.message) + '</div>'; }
   }
 
-  window.postTweet = async function() {
-    var content = $('compose-content').value.trim();
-    if (!content) return alert('请输入内容');
-    var data = { content: content, author: pb.authStore.model.id, likes_count: 0 };
-    var tags = $('compose-tags').value.trim();
-    if (tags) data.tags = tags;
-    var imgInput = $('compose-image');
-    try {
-      if (imgInput.files[0]) data.image = imgInput.files[0];
-      await pb.collection('tweets').create(data);
-      $('compose-content').value = ''; $('compose-tags').value = ''; imgInput.value = ''; $('compose-preview').classList.add('hidden');
-      switchMainTab('tweets');
-    } catch(e) { alert('发布失败: ' + e.message); }
-  };
-
-  window.likeTweet = async function(tweetId) {
-    try {
-      var existing = await pb.collection('likes').getList(1, 1, { filter: 'tweet="' + tweetId + '" && user="' + pb.authStore.model.id + '"' });
-      if (existing.items.length) { await pb.collection('likes').delete(existing.items[0].id); }
-      else { await pb.collection('likes').create({ tweet: tweetId, user: pb.authStore.model.id }); }
-      var tweet = await pb.collection('tweets').getOne(tweetId);
-      var likes = await pb.collection('likes').getList(1, 1, { filter: 'tweet="' + tweetId + '"' });
-      await pb.collection('tweets').update(tweetId, { likes_count: likes.totalItems });
-      loadTweets();
-    } catch(e) { console.error(e); }
-  };
-
   async function loadFiles() {
     var c = $('files-list');
+    if (!pb) { c.innerHTML = '<div class="empty">PocketBase 未连接</div>'; return; }
     try {
       var records = await pb.collection('uploads').getList(1, 30, { sort: '-created', expand: 'uploader' });
       if (!records.items.length) { c.innerHTML = '<div class="empty">还没有分享文件</div>'; return; }
@@ -408,29 +263,10 @@ function switchPage(page) {
       records.items.forEach(function(f) {
         var uploader = f.expand && f.expand.uploader;
         var catEmoji = {document:'📄',image:'🖼️',video:'🎬',music:'🎵',archive:'📦',other:'📌'}[f.category]||'📌';
-        c.innerHTML += '<div class="upload-card"><div style="flex:1"><div style="font-weight:600">' + catEmoji + ' ' + escapeHtml(f.title) + '</div><div style="font-size:12px;color:var(--text2)">' + ((uploader&&uploader.name)||'匿名') + ' · ' + new Date(f.created).toLocaleString('zh-CN') + ' · 下载 ' + (f.downloads||0) + ' 次</div>' + (f.description ? '<div style="font-size:13px;color:var(--text2);margin-top:4px">' + escapeHtml(f.description) + '</div>' : '') + '</div><a href="' + PB_URL + '/api/files/uploads/' + f.id + '/' + f.file + '" target="_blank" class="btn btn-primary btn-sm" onclick="recordDownload(\'' + f.id + '\',' + (f.downloads||0) + ')">⬇ 下载</a></div>';
+        c.innerHTML += '<div class="upload-card"><div style="flex:1"><div style="font-weight:600">' + catEmoji + ' ' + escapeHtml(f.title) + '</div><div style="font-size:12px;color:var(--text2)">' + ((uploader&&uploader.name)||'匿名') + ' · ' + new Date(f.created).toLocaleString('zh-CN') + ' · 下载 ' + (f.downloads||0) + ' 次</div>' + (f.description ? '<div style="font-size:13px;color:var(--text2);margin-top:4px">' + escapeHtml(f.description) + '</div>' : '') + '</div><a href="' + PB_URL + '/api/files/uploads/' + f.id + '/' + f.file + '" target="_blank" class="btn btn-primary btn-sm">⬇ 下载</a></div>';
       });
     } catch(e) { c.innerHTML = '<div class="empty">加载失败: ' + escapeHtml(e.message) + '</div>'; }
   }
-
-  window.uploadFile = async function() {
-    var title = $('upload-title').value.trim();
-    var fileInput = $('upload-file-input');
-    if (!title) return alert('请输入标题');
-    if (!fileInput.files[0]) return alert('请选择文件');
-    try {
-      await pb.collection('uploads').create({
-        title: title, description: $('upload-desc').value.trim(), file: fileInput.files[0],
-        uploader: pb.authStore.model.id, downloads: 0, category: $('upload-category').value
-      });
-      $('upload-title').value = ''; $('upload-desc').value = ''; fileInput.value = '';
-      switchMainTab('files');
-    } catch(e) { alert('上传失败: ' + e.message); }
-  };
-
-  window.recordDownload = async function(id, cur) {
-    try { await pb.collection('uploads').update(id, { downloads: cur + 1 }); } catch(e) {}
-  };
 
   window.previewComposeImage = function(e) {
     var file = e.target.files[0];
@@ -440,14 +276,20 @@ function switchPage(page) {
     reader.readAsDataURL(file);
   };
 
-  // Init VPS
+  // Init: check VPS status, show tweets
   (async function() {
     try {
       var resp = await fetch(PB_URL + '/api/health');
-      if (!resp.ok) throw new Error('Status ' + resp.status);
-      if (pb.authStore.isValid) { showMain(); } else { showAuth(); }
+      var data = await resp.json();
+      if (data.code === 200) {
+        $('vps-status').innerHTML = '<div style="color:var(--success);font-weight:600">✅ PocketBase 运行正常</div><div style="font-size:12px;color:var(--text2);margin-top:4px">API: ' + PB_URL + '/api</div>';
+        $('main-content').classList.remove('hidden');
+        loadTweets();
+      } else {
+        throw new Error('API returned ' + JSON.stringify(data));
+      }
     } catch(e) {
-      $('auth-card').innerHTML = '<div class="empty" style="padding:40px"><h3>⚠️ 无法连接 VPS</h3><p style="color:var(--text2);margin-top:8px">' + escapeHtml(e.message) + '</p><p style="font-size:12px;color:var(--text2);margin-top:4px">首次使用需<a href="https://166.88.98.215" target="_blank" style="color:var(--accent)">打开VPS地址</a>并接受证书警告，之后刷新本页。切换「🗄️ 数据库管理」仍可使用</p></div>';
+      $('vps-status').innerHTML = '<div style="color:var(--danger);font-weight:600">⚠️ 无法连接 PocketBase</div><div style="font-size:12px;color:var(--text2);margin-top:4px">' + escapeHtml(e.message) + '</div>';
     }
   })();
 })();
@@ -461,7 +303,7 @@ function switchPage(page) {
   var selectedImages = {};
   var modalFile = null;
 
-  function getToken() { return localStorage.getItem('gh_token') || ''; }
+  function getToken() { return localStorage.getItem('gh_token') || 'TOKEN_NOT_SET'; }
   function ghHeaders() {
     return { 'Authorization': 'Bearer ' + getToken(), 'Accept': 'application/vnd.github.v3+json', 'Content-Type': 'application/json' };
   }
@@ -489,25 +331,7 @@ function switchPage(page) {
     return resp.json();
   }
 
-  // Token
-  window.saveGHToken = function() {
-    var t = $('gh-token').value.trim();
-    if (!t) return;
-    localStorage.setItem('gh_token', t);
-    $('gh-token-status').innerHTML = '<span style="color:var(--success)">✅ Token 已保存</span>';
-    loadDBOverview();
-  };
-
-  window.initDBPage = function() {
-    var t = getToken();
-    if (t) {
-      $('gh-token').value = t;
-      $('gh-token-status').innerHTML = '<span style="color:var(--success)">✅ Token 已配置</span>';
-      loadDBOverview();
-    } else {
-      $('gh-token-status').innerHTML = '<span style="color:var(--danger)">⚠️ 请先配置 Token</span>';
-    }
-  };
+  window.initDBPage = function() { loadDBOverview(); };
 
   // Overview
   async function loadDBOverview() {
