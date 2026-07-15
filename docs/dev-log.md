@@ -133,6 +133,31 @@
 
 ---
 
+## 2026-07-15: 阶段3.5 — 面板修复 + 网络优化
+
+### 面板故障
+- **问题**: 点击按钮无响应
+- **根因**: `PocketBase` CDN加载失败 → `new PocketBase()`抛异常 → 整个JS崩溃，VPS面板和DB面板全部瘫痪
+- **修复**: VPS面板和DB面板解耦为两个独立IIFE，try-catch保护，PocketBase挂了不影响DB面板
+- **验证**: JS花括号159/159，HTML div 105/105，21个函数全部暴露到window
+
+### 混合内容拦截
+- **问题**: HTTPS页面(`worsefive.github.io`) → HTTP API(`166.88.98.215:8090`) 被浏览器拦截
+- **修复**: VPS安装nginx，自签SSL证书，8443端口反代→8090
+- **验证**: `curl -k https://166.88.98.215:8443/api/health` → 200
+
+### GitHub网络不稳定
+- **问题**: 国内GitHub 443端口间歇性不通
+- **根因**: WireGuard只路由内网，GitHub走公网被墙
+- **修复**: SSH SOCKS5隧道 → VPS → GitHub，端口1080
+- **Git配置**: `http.proxy socks5h://127.0.0.1:1080` (全局)
+- **自动启动**: `~/.bashrc` 检测隧道状态，挂了自动拉起
+
+### URL锚点路由
+- `app.html#vps` → VPS面板
+- `app.html#database` → 数据库面板
+- 三个快捷启动脚本: `dashboard_vps.bat` / `dashboard_database.bat` / `dashboard_all.bat`
+
 ## 下一步计划
 
 - [ ] 阶段4: 开发 `auto_reply` AstrBot 插件（关键词匹配 + GitHub Raw 按需获取）
