@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WorseFive's Space - 互动空间</title>
+<script src="https://cdn.jsdelivr.net/npm/pocketbase@0.22.0/dist/pocketbase.umd.min.js"></script>
+<style>
+:root {
+  --bg: #f8fafc; --card: #ffffff; --text: #1e293b;
+  --text2: #64748b; --border: #e2e8f0; --accent: #3b82f6;
+  --danger: #ef4444; --success: #22c55e; --radius: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0f172a; --card: #1e293b; --text: #f1f5f9;
+    --text2: #94a3b8; --border: #334155;
+  }
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+.container { max-width: 680px; margin: 0 auto; padding: 20px; }
+.header { text-align: center; padding: 32px 0 24px; }
+.header h1 { font-size: 28px; margin-bottom: 8px; }
+.header p { color: var(--text2); }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 16px; }
+.btn { padding: 8px 20px; border-radius: 8px; border: none; cursor: pointer; font-size: 14px; font-weight: 500; transition: all .2s; }
+.btn-primary { background: var(--accent); color: white; }
+.btn-primary:hover { opacity: 0.9; }
+.btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { background: var(--border); }
+.btn-danger { background: var(--danger); color: white; }
+.btn-sm { padding: 4px 12px; font-size: 12px; }
+.input { width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg); color: var(--text); font-size: 14px; margin-bottom: 10px; outline: none; }
+.input:focus { border-color: var(--accent); }
+textarea.input { resize: vertical; min-height: 80px; }
+.flex { display: flex; gap: 8px; align-items: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.tweet { padding: 16px 0; border-bottom: 1px solid var(--border); }
+.tweet:last-child { border-bottom: none; }
+.tweet-header { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+.avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; }
+.tweet-name { font-weight: 600; font-size: 14px; }
+.tweet-time { font-size: 12px; color: var(--text2); }
+.tweet-content { margin-bottom: 10px; line-height: 1.6; font-size: 15px; }
+.tweet-image { max-width: 100%; border-radius: 8px; margin-bottom: 8px; }
+.tweet-actions { display: flex; gap: 16px; font-size: 13px; color: var(--text2); }
+.tweet-actions span { cursor: pointer; display: flex; align-items: center; gap: 4px; }
+.tweet-actions span:hover { color: var(--accent); }
+.tweet-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.tag { background: var(--bg); color: var(--accent); padding: 2px 10px; border-radius: 100px; font-size: 12px; }
+.section-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+.tab-bar { display: flex; gap: 4px; margin-bottom: 16px; border-bottom: 2px solid var(--border); }
+.tab { padding: 8px 20px; cursor: pointer; font-size: 14px; border-bottom: 2px solid transparent; margin-bottom: -2px; color: var(--text2); }
+.tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+.hidden { display: none !important; }
+.file-upload { margin-top: 8px; }
+.file-upload input { display: none; }
+.file-preview { max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 8px; }
+#upload-progress { height: 4px; background: var(--border); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+#upload-progress div { height: 100%; background: var(--accent); transition: width .3s; }
+.upload-card { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.empty { text-align: center; color: var(--text2); padding: 40px; }
+/* Page Selector */
+.page-selector { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
+.page-btn { padding: 10px 28px; border-radius: 10px; border: 2px solid var(--border); background: var(--card); color: var(--text); cursor: pointer; font-size: 14px; font-weight: 600; transition: all .2s; }
+.page-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+.page-btn:hover:not(.active) { border-color: var(--accent); color: var(--accent); }
+/* Browse Grid */
+.browse-item { position: relative; cursor: pointer; border-radius: 8px; overflow: hidden; border: 2px solid transparent; aspect-ratio: 1; background: var(--bg); }
+.browse-item img { width: 100%; height: 100%; object-fit: cover; }
+.browse-item.selected { border-color: var(--danger); }
+.browse-item.selected::after { content: '✕'; position: absolute; top: 4px; right: 4px; background: var(--danger); color: white; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
+.browse-item .fname { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0,0,0,0.7); color: white; font-size: 10px; padding: 3px 6px; text-overflow: ellipsis; overflow: hidden; white-space: nowrap; }
+/* Overview stat */
+.stat-box { background: var(--bg); border-radius: 8px; padding: 14px; text-align: center; }
+.stat-box .num { font-size: 24px; font-weight: 700; color: var(--accent); }
+.stat-box .label { font-size: 12px; color: var(--text2); margin-top: 4px; }
+/* Modal */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; display: flex; align-items: center; justify-content: center; }
+.modal-box { background: var(--card); border-radius: var(--radius); padding: 24px; width: 90%; max-width: 520px; max-height: 90vh; overflow-y: auto; border: 1px solid var(--border); }
+/* Drop Zone */
+.drop-zone { border: 2px dashed var(--border); border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; transition: all .2s; margin-bottom: 12px; }
+.drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent); background: rgba(59,130,246,0.05); }
+@media (max-width: 480px) { .container { padding: 12px; } .tweet-actions { gap: 12px; } #browse-grid { grid-template-columns: repeat(2,1fr) !important; } #db-overview { grid-template-columns: repeat(2,1fr) !important; } .modal-box { width: 95%; padding: 16px; } }
+</style>
+</head>
+<body>
+<div class="container" id="app">
+
+<!-- Header -->
+<!-- Page Selector -->
+<div class="page-selector">
+  <button class="page-btn active" onclick="switchPage('vps')">🖥️ VPS面板</button>
+  <button class="page-btn" onclick="switchPage('database')">🗄️ 数据库管理</button>
+</div>
+
+<div class="header">
+  <h1>🚀 WorseFive's Space</h1>
+  <p>动态推文 · 文件分享 · 互动社区</p>
+</div>
+
+<!-- ===== PAGE 1: VPS面板 ===== -->
+<div id="page-vps">
+
+<!-- Auth Card (shown when logged out) -->
+<div id="auth-card" class="card">
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchTab('login')">登录</button>
+    <button class="tab" onclick="switchTab('register')">注册</button>
+  </div>
+  <div id="login-form">
+    <input class="input" type="email" id="login-email" placeholder="邮箱地址">
+    <input class="input" type="password" id="login-password" placeholder="密码">
+    <button class="btn btn-primary" onclick="login()" style="width:100%">登 录</button>
+  </div>
+  <div id="register-form" class="hidden">
+    <input class="input" id="reg-name" placeholder="昵称">
+    <input class="input" type="email" id="reg-email" placeholder="邮箱地址">
+    <input class="input" type="password" id="reg-password" placeholder="密码 (8位以上)">
+    <input class="input" type="password" id="reg-password2" placeholder="确认密码">
+    <button class="btn btn-primary" onclick="register()" style="width:100%">注 册</button>
+  </div>
+</div>
+
+<!-- Main Content (shown when logged in) -->
+<div id="main-content" class="hidden">
+  <!-- User Info -->
+  <div class="card flex-between">
+    <div class="flex">
+      <div class="avatar" id="user-avatar">U</div>
+      <div>
+        <div style="font-weight:600" id="user-name">User</div>
+        <div style="font-size:12px;color:var(--text2)" id="user-email">email</div>
+      </div>
+    </div>
+    <button class="btn btn-outline btn-sm" onclick="logout()">退出</button>
+  </div>
+
+  <!-- Tab Bar -->
+  <div class="tab-bar">
+    <button class="tab active" onclick="switchMainTab('tweets')">📝 动态</button>
+    <button class="tab" onclick="switchMainTab('compose')">✍️ 发推</button>
+    <button class="tab" onclick="switchMainTab('files')">📁 文件</button>
+    <button class="tab" onclick="switchMainTab('upload')">📤 上传</button>
+  </div>
+
+  <!-- Tweets Feed -->
+  <div id="tweets-tab">
+    <div class="section-title">最新动态</div>
+    <div id="tweets-list"><div class="empty">加载中...</div></div>
+  </div>
+
+  <!-- Compose Tweet -->
+  <div id="compose-tab" class="hidden">
+    <div class="card">
+      <div class="section-title">发布新动态</div>
+      <textarea class="input" id="compose-content" placeholder="分享你的想法... (最多500字)" maxlength="500"></textarea>
+      <input class="input" id="compose-tags" placeholder="标签 (用逗号分隔，如: 技术, Linux)">
+      <div class="flex-between">
+        <div class="flex">
+          <button class="btn btn-outline btn-sm" onclick="document.getElementById('compose-image').click()">📷 添加图片</button>
+          <input type="file" id="compose-image" accept="image/*" style="display:none" onchange="previewComposeImage(event)">
+        </div>
+        <button class="btn btn-primary" onclick="postTweet()">发布 🚀</button>
+      </div>
+      <img id="compose-preview" class="file-preview hidden">
+    </div>
+  </div>
+
+  <!-- Files List -->
+  <div id="files-tab" class="hidden">
+    <div class="card">
+      <div class="section-title">文件分享</div>
+      <div id="files-list"><div class="empty">加载中...</div></div>
+    </div>
+  </div>
+
+  <!-- Upload File -->
+  <div id="upload-tab" class="hidden">
+    <div class="card">
+      <div class="section-title">上传文件</div>
+      <input class="input" id="upload-title" placeholder="文件标题">
+      <textarea class="input" id="upload-desc" placeholder="文件描述 (可选)" style="min-height:60px"></textarea>
+      <select class="input" id="upload-category">
+        <option value="document">📄 文档</option>
+        <option value="image">🖼️ 图片</option>
+        <option value="video">🎬 视频</option>
+        <option value="music">🎵 音乐</option>
+        <option value="archive">📦 压缩包</option>
+        <option value="other">📌 其他</option>
+      </select>
+      <input type="file" id="upload-file-input" style="margin-bottom:10px">
+      <button class="btn btn-primary" onclick="uploadFile()" style="width:100%">上传文件</button>
+      <div id="upload-progress" class="hidden"><div style="width:0%"></div></div>
+    </div>
+  </div>
+</div>
+</div>
+</div><!-- end #page-vps -->
+
+<!-- ===== PAGE 2: 数据库管理 ===== -->
+<div id="page-database" class="hidden">
+
+  <!-- GitHub Token Setup -->
+  <div class="card" id="gh-token-card">
+    <div class="section-title">🔑 GitHub Token</div>
+    <p style="font-size:13px;color:var(--text2);margin-bottom:10px">
+      需要 GitHub Personal Access Token 操作 Clover_Database。<br>
+      <a href="https://github.com/settings/tokens" target="_blank">创建 Token</a>，勾选 <b>public_repo</b> 权限。
+    </p>
+    <div class="flex">
+      <input class="input" type="password" id="gh-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="margin-bottom:0">
+      <button class="btn btn-primary" onclick="saveGHToken()">保存</button>
+    </div>
+    <div id="gh-token-status" style="font-size:12px;margin-top:6px"></div>
+  </div>
+
+  <!-- Overview -->
+  <div class="card">
+    <div class="section-title">📊 数据概览</div>
+    <div id="db-overview" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font-size:14px">
+      <div class="empty">加载中...</div>
+    </div>
+  </div>
+
+  <!-- Add Image -->
+  <div class="card">
+    <div class="section-title">➕ 添加图片</div>
+    <button class="btn btn-primary" onclick="openAddModal()" style="width:100%">打开添加窗口</button>
+    <div style="font-size:12px;color:var(--text2);margin-top:6px">支持拖拽图片到窗口 / 点击选择 / 粘贴图片</div>
+  </div>
+
+  <!-- Browse & Delete -->
+  <div class="card">
+    <div class="section-title">🔍 浏览 / 删除图片</div>
+    <div class="flex" style="margin-bottom:12px">
+      <select class="input" id="browse-category" onchange="browseImages()" style="width:auto;margin-bottom:0">
+        <option value="">选择分类...</option>
+        <option value="pig">🐷 猪猪</option>
+        <option value="nailong">🥛 奶龙</option>
+        <option value="otto">🎭 电棍</option>
+      </select>
+      <button class="btn btn-outline btn-sm" onclick="browseImages()">刷新</button>
+      <span style="font-size:12px;color:var(--text2)" id="browse-count"></span>
+    </div>
+    <div id="browse-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-height:500px;overflow-y:auto">
+      <div class="empty">请选择分类</div>
+    </div>
+    <div style="margin-top:12px" id="delete-actions" class="hidden">
+      <button class="btn btn-danger btn-sm" onclick="deleteSelectedImages()">🗑️ 删除选中</button>
+      <button class="btn btn-outline btn-sm" onclick="renameSelectedImage()" style="margin-left:8px">✏️ 重命名</button>
+      <span style="font-size:12px;color:var(--text2);margin-left:8px" id="delete-count"></span>
+    </div>
+    <div id="delete-progress" style="font-size:13px;margin-top:8px"></div>
+  </div>
+
+  <!-- Repository Actions -->
+  <div class="card">
+    <div class="section-title">🔄 仓库操作</div>
+    <div class="flex" style="gap:10px;flex-wrap:wrap">
+      <button class="btn btn-outline" onclick="syncRepoData()">🔄 刷新概览</button>
+      <button class="btn btn-outline" onclick="repairExtensions()">🔧 修复扩展名</button>
+    </div>
+    <div id="repo-action-status" style="font-size:13px;margin-top:10px"></div>
+  </div>
+
+  <!-- Add Image Modal -->
+  <div class="modal-overlay hidden" id="add-modal">
+    <div class="modal-box">
+      <div class="flex-between" style="margin-bottom:16px">
+        <div class="section-title" style="margin:0">➕ 添加图片到数据库</div>
+        <button class="btn btn-outline btn-sm" onclick="closeAddModal()">✕</button>
+      </div>
+
+      <!-- Drop zone -->
+      <div class="drop-zone" id="drop-zone">
+        <div style="font-size:40px;margin-bottom:8px">🖼️</div>
+        <div style="font-weight:600;margin-bottom:4px">拖拽图片到此处</div>
+        <div style="font-size:12px;color:var(--text2)">或点击选择文件 · 支持 jpg/png/gif · 也支持 Ctrl+V 粘贴</div>
+        <input type="file" id="modal-file-input" accept="image/jpeg,image/png,image/gif" style="display:none" onchange="onModalFileSelect(event)">
+      </div>
+
+      <!-- Preview -->
+      <div id="modal-preview-container" class="hidden" style="text-align:center;margin:12px 0">
+        <img id="modal-preview-img" style="max-width:100%;max-height:200px;border-radius:8px">
+        <div style="font-size:12px;color:var(--text2);margin-top:4px" id="modal-file-info"></div>
+      </div>
+
+      <!-- Form -->
+      <select class="input" id="modal-category">
+        <option value="">选择分类...</option>
+        <option value="pig">🐷 猪猪</option>
+        <option value="nailong">🥛 奶龙</option>
+        <option value="otto">🎭 电棍</option>
+      </select>
+      <input class="input" id="modal-filename" placeholder="文件名 (如: 可爱猪_001.jpg)">
+      <div style="font-size:12px;color:var(--text2);margin-bottom:8px">
+        仅允许中文/英文/数字/下划线/连字符，扩展名 jpg/png/gif
+        <br>提示：如果从文件拖入，会自动填入原始文件名
+      </div>
+
+      <div class="flex-between">
+        <span style="font-size:13px;color:var(--text2)" id="modal-status"></span>
+        <div class="flex">
+          <button class="btn btn-outline" onclick="closeAddModal()" style="margin-right:8px">取消</button>
+          <button class="btn btn-primary" onclick="addImageFromModal()">提交到仓库</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end #page-database -->
+
+</div>
+</div>
+
+<script>
+const PB_URL = 'http://166.88.98.215:8090';
+const pb = new PocketBase(PB_URL);
+
+// ===== Auth =====
+function switchTab(tab) {
+  document.getElementById('login-form').classList.toggle('hidden', tab !== 'login');
+  document.getElementById('register-form').classList.toggle('hidden', tab !== 'register');
+  document.querySelectorAll('#auth-card .tab').forEach((t,i) => t.classList.toggle('active', (tab==='login'&&i===0)||(tab==='register'&&i===1)));
+}
+
+async function login() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value;
+  if (!email || !password) return alert('请填写邮箱和密码');
+  try {
+    await pb.collection('users').authWithPassword(email, password);
+    showMain();
+  } catch(e) {
+    var msg = e.response ? (e.response.message || e.response.code) : e.message;
+    alert('登录失败: ' + msg);
+  }
+}
+
+async function register() {
+  var name = document.getElementById('reg-name').value.trim();
+  var email = document.getElementById('reg-email').value.trim();
+  var password = document.getElementById('reg-password').value;
+  var password2 = document.getElementById('reg-password2').value;
+  if (!name) return alert('请输入昵称');
+  if (!email) return alert('请输入邮箱');
+  if (password !== password2) return alert('两次密码不一致');
+  if (password.length < 8) return alert('密码至少8位');
+  try {
+    await pb.collection('users').create({ name, email, password, passwordConfirm: password });
+    await pb.collection('users').authWithPassword(email, password);
+    showMain();
+  } catch(e) {
+    var data = e.response ? e.response.data : {};
+    var fields = Object.keys(data);
+    var msgs = [];
+    for (var f of fields) {
+      msgs.push(f + ': ' + (data[f].message || data[f].code));
+    }
+    alert('注册失败: ' + (msgs.length ? msgs.join('\\n') : (e.message || '未知错误')));
+  }
+}
+
+function logout() {
+  pb.authStore.clear();
+  showAuth();
+}
+
+// ===== UI Toggle =====
+function showAuth() {
+  document.getElementById('auth-card').classList.remove('hidden');
+  document.getElementById('main-content').classList.add('hidden');
+}
+function showMain() {
+  document.getElementById('auth-card').classList.add('hidden');
+  document.getElementById('main-content').classList.remove('hidden');
+  const user = pb.authStore.model;
+  document.getElementById('user-name').textContent = user.name || user.email.split('@')[0];
+  document.getElementById('user-email').textContent = user.email;
+  document.getElementById('user-avatar').textContent = (user.name || user.email)[0].toUpperCase();
+  loadTweets();
+}
+
+function switchMainTab(tab) {
+  ['tweets','compose','files','upload'].forEach(t => document.getElementById(t+'-tab').classList.toggle('hidden', t !== tab));
+  document.querySelectorAll('#main-content .tab-bar .tab').forEach((t,i) => {
+    const tabs = ['tweets','compose','files','upload'];
+    t.classList.toggle('active', tabs[i] === tab);
+  });
+  if (tab === 'tweets') loadTweets();
+  if (tab === 'files') loadFiles();
+}
+
+// ===== Tweets =====
+async function loadTweets() {
+  const container = document.getElementById('tweets-list');
+  try {
+    const records = await pb.collection('tweets').getList(1, 30, { sort: '-created', expand: 'author' });
+    if (records.items.length === 0) { container.innerHTML = '<div class="empty">还没有动态，发第一条吧！</div>'; return; }
+    container.innerHTML = '';
+    for (const t of records.items) {
+      const author = t.expand?.author;
+      const time = new Date(t.created).toLocaleString('zh-CN');
+      const imageHtml = t.image ? `<img class="tweet-image" src="${PB_URL}/api/files/tweets/${t.id}/${t.image}" alt="image">` : '';
+      const tagsHtml = t.tags ? `<div class="tweet-tags">${t.tags.split(',').map(tag=>`<span class="tag">${tag.trim()}</span>`).join('')}</div>` : '';
+      container.innerHTML += `
+        <div class="tweet">
+          <div class="tweet-header">
+            <div class="avatar">${(author?.name||author?.email||'?')[0].toUpperCase()}</div>
+            <div>
+              <div class="tweet-name">${author?.name || author?.email?.split('@')[0] || '匿名'}</div>
+              <div class="tweet-time">${time}</div>
+            </div>
+          </div>
+          ${tagsHtml}
+          <div class="tweet-content">${escapeHtml(t.content)}</div>
+          ${imageHtml}
+          <div class="tweet-actions">
+            <span onclick="likeTweet('${t.id}')">❤️ ${t.likes_count || 0}</span>
+            <span>💬 0</span>
+          </div>
+        </div>`;
+    }
+  } catch(e) { container.innerHTML = '<div class="empty">加载失败: '+e.message+'</div>'; }
+}
+
+async function postTweet() {
+  const content = document.getElementById('compose-content').value.trim();
+  if (!content) return alert('请输入内容');
+  const tags = document.getElementById('compose-tags').value.trim();
+  const imageInput = document.getElementById('compose-image');
+  const data = { content, author: pb.authStore.model.id, likes_count: 0 };
+  if (tags) data.tags = tags;
+  try {
+    if (imageInput.files[0]) {
+      data.image = imageInput.files[0];
+    }
+    await pb.collection('tweets').create(data);
+    document.getElementById('compose-content').value = '';
+    document.getElementById('compose-tags').value = '';
+    document.getElementById('compose-image').value = '';
+    document.getElementById('compose-preview').classList.add('hidden');
+    switchMainTab('tweets');
+  } catch(e) { alert('发布失败: ' + e.message); }
+}
+
+async function likeTweet(tweetId) {
+  try {
+    const existing = await pb.collection('likes').getList(1, 1, {
+      filter: `tweet="${tweetId}" && user="${pb.authStore.model.id}"`
+    });
+    if (existing.items.length > 0) {
+      await pb.collection('likes').delete(existing.items[0].id);
+    } else {
+      await pb.collection('likes').create({ tweet: tweetId, user: pb.authStore.model.id });
+    }
+    // Refresh likes count
+    const tweet = await pb.collection('tweets').getOne(tweetId);
+    const likes = await pb.collection('likes').getList(1, 1, { filter: `tweet="${tweetId}"` });
+    await pb.collection('tweets').update(tweetId, { likes_count: likes.totalItems });
+    loadTweets();
+  } catch(e) { console.error('Like error:', e); }
+}
+
+// ===== Files =====
+async function loadFiles() {
+  const container = document.getElementById('files-list');
+  try {
+    const records = await pb.collection('uploads').getList(1, 30, { sort: '-created', expand: 'uploader' });
+    if (records.items.length === 0) { container.innerHTML = '<div class="empty">还没有分享文件</div>'; return; }
+    container.innerHTML = '';
+    for (const f of records.items) {
+      const uploader = f.expand?.uploader;
+      const time = new Date(f.created).toLocaleString('zh-CN');
+      const catEmoji = {document:'📄',image:'🖼️',video:'🎬',music:'🎵',archive:'📦',other:'📌'}[f.category]||'📌';
+      const fileUrl = `${PB_URL}/api/files/uploads/${f.id}/${f.file}`;
+      container.innerHTML += `
+        <div class="upload-card">
+          <div style="flex:1">
+            <div style="font-weight:600">${catEmoji} ${escapeHtml(f.title)}</div>
+            <div style="font-size:12px;color:var(--text2)">${uploader?.name||'匿名'} · ${time} · 下载 ${f.downloads||0} 次</div>
+            ${f.description ? `<div style="font-size:13px;color:var(--text2);margin-top:4px">${escapeHtml(f.description)}</div>` : ''}
+          </div>
+          <a href="${fileUrl}" target="_blank" class="btn btn-primary btn-sm" onclick="recordDownload('${f.id}', ${f.downloads||0})">⬇ 下载</a>
+        </div>`;
+    }
+  } catch(e) { container.innerHTML = '<div class="empty">加载失败: '+e.message+'</div>'; }
+}
+
+async function uploadFile() {
+  const title = document.getElementById('upload-title').value.trim();
+  const fileInput = document.getElementById('upload-file-input');
+  const category = document.getElementById('upload-category').value;
+  if (!title) return alert('请输入标题');
+  if (!fileInput.files[0]) return alert('请选择文件');
+  const desc = document.getElementById('upload-desc').value.trim();
+  const progress = document.getElementById('upload-progress');
+  const progressBar = progress.querySelector('div');
+  progress.classList.remove('hidden');
+  progressBar.style.width = '30%';
+  try {
+    await pb.collection('uploads').create({
+      title, description: desc, file: fileInput.files[0],
+      uploader: pb.authStore.model.id, downloads: 0, category
+    });
+    progressBar.style.width = '100%';
+    setTimeout(() => { progress.classList.add('hidden'); progressBar.style.width = '0%'; }, 500);
+    document.getElementById('upload-title').value = '';
+    document.getElementById('upload-desc').value = '';
+    fileInput.value = '';
+    switchMainTab('files');
+  } catch(e) { alert('上传失败: ' + e.message); progress.classList.add('hidden'); }
+}
+
+async function recordDownload(id, current) {
+  try { await pb.collection('uploads').update(id, { downloads: current + 1 }); } catch(e) {}
+}
+
+// ===== Helpers =====
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+function previewComposeImage(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const img = document.getElementById('compose-preview');
+    img.src = ev.target.result;
+    img.classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+}
+
+// ===== Init =====
+(async function init() {
+  // Test PocketBase connectivity
+  try {
+    var resp = await fetch(PB_URL + '/api/health');
+    if (!resp.ok) throw new Error('Server unreachable');
+    console.log('PocketBase connected OK');
+  } catch(e) {
+    document.getElementById('auth-card').innerHTML =
+      '<div class="empty" style="padding:40px">' +
+      '<h3>无法连接到服务器</h3>' +
+      '<p style="color:var(--text2);margin-top:8px">后端服务暂时不可用，请稍后再试</p>' +
+      '<p style="font-size:12px;color:var(--text2);margin-top:4px">' + e.message + '</p>' +
+      '</div>';
+    return;
+  }
+  if (pb.authStore.isValid) { showMain(); } else { showAuth(); }
+})();
+
+// ===== Page Switcher =====
+function switchPage(page) {
+  document.getElementById('page-vps').classList.toggle('hidden', page !== 'vps');
+  document.getElementById('page-database').classList.toggle('hidden', page !== 'database');
+  document.querySelectorAll('.page-btn').forEach((b, i) => {
+    b.classList.toggle('active', (page === 'vps' && i === 0) || (page === 'database' && i === 1));
+  });
+  if (page === 'database') initDBPage();
+}
+
+// ===== GitHub API Helpers =====
+const GH_REPO = 'WorseFive/Clover_Database';
+const GH_API = 'https://api.github.com';
+
+function getGHToken() {
+  return localStorage.getItem('gh_token') || '';
+}
+
+function ghHeaders() {
+  var token = getGHToken();
+  return {
+    'Authorization': 'Bearer ' + token,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json'
+  };
+}
+
+async function ghGet(path) {
+  var resp = await fetch(GH_API + '/repos/' + GH_REPO + '/contents/' + path, { headers: ghHeaders() });
+  if (!resp.ok) throw new Error(resp.status + ' ' + (await resp.json()).message);
+  return resp.json();
+}
+
+async function ghPut(path, content, message) {
+  var body = {
+    message: message,
+    content: btoa(unescape(encodeURIComponent(content))),
+    branch: 'main'
+  };
+  var resp = await fetch(GH_API + '/repos/' + GH_REPO + '/contents/' + path, {
+    method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)
+  });
+  if (!resp.ok) throw new Error(resp.status + ' ' + (await resp.json()).message);
+  return resp.json();
+}
+
+async function ghPutBinary(path, bytes, message) {
+  // Upload binary file (image)
+  var body = {
+    message: message,
+    content: btoa(String.fromCharCode.apply(null, new Uint8Array(bytes))),
+    branch: 'main'
+  };
+  var resp = await fetch(GH_API + '/repos/' + GH_REPO + '/contents/' + path, {
+    method: 'PUT', headers: ghHeaders(), body: JSON.stringify(body)
+  });
+  if (!resp.ok) throw new Error(resp.status + ' ' + (await resp.json()).message);
+  return resp.json();
+}
+
+async function ghDelete(path, sha, message) {
+  var body = { message: message, sha: sha, branch: 'main' };
+  var resp = await fetch(GH_API + '/repos/' + GH_REPO + '/contents/' + path, {
+    method: 'DELETE', headers: ghHeaders(), body: JSON.stringify(body)
+  });
+  if (!resp.ok) throw new Error(resp.status + ' ' + (await resp.json()).message);
+  return resp.json();
+}
+
+// ===== Token Management =====
+function saveGHToken() {
+  var token = document.getElementById('gh-token').value.trim();
+  if (!token) return;
+  localStorage.setItem('gh_token', token);
+  document.getElementById('gh-token-status').innerHTML = '<span style="color:var(--success)">✅ Token 已保存</span>';
+  loadDBOverview();
+}
+
+function initDBPage() {
+  var token = getGHToken();
+  if (token) {
+    document.getElementById('gh-token').value = token;
+    document.getElementById('gh-token-status').innerHTML = '<span style="color:var(--success)">✅ Token 已配置</span>';
+    loadDBOverview();
+  } else {
+    document.getElementById('gh-token-status').innerHTML = '<span style="color:var(--danger)">⚠️ 请先配置 Token</span>';
+  }
+}
+
+// ===== Overview =====
+async function loadDBOverview() {
+  var token = getGHToken();
+  if (!token) return;
+  var overview = document.getElementById('db-overview');
+  overview.innerHTML = '<div class="empty">加载中...</div>';
+
+  try {
+    var cats = [
+      { key: 'pig', label: '🐷 猪猪', img: 'images/pig' },
+      { key: 'nailong', label: '🥛 奶龙', img: 'images/nailong' },
+      { key: 'otto', label: '🎭 电棍', img: 'images/otto' },
+    ];
+    var texts = [
+      { key: 'kfc', label: '🍗 KFC', dir: 'texts/kfc', file: 'quotes.json' },
+      { key: 'thunder_dragon', label: '⚡ 雷龙', dir: 'texts/thunder_dragon', file: 'quotes.json' },
+      { key: 'fadian', label: '🤪 发癫', dir: 'texts/fadian', file: 'quotes.json' },
+    ];
+
+    var html = '';
+    // Image stats
+    for (var c of cats) {
+      try {
+        var data = await ghGet(c.img);
+        var count = Array.isArray(data) ? data.filter(function(f){ return f.type === 'file' && !f.name.startsWith('.') && f.name !== 'manifest.json'; }).length : 0;
+        html += '<div class="stat-box"><div class="num">' + count + '</div><div class="label">' + c.label + '</div></div>';
+      } catch(e) { html += '<div class="stat-box"><div class="num">-</div><div class="label">' + c.label + '</div></div>'; }
+    }
+    // Text stats
+    for (var t of texts) {
+      try {
+        var qdata = await ghGet(t.dir + '/' + t.file);
+        var content = JSON.parse(atob(qdata.content));
+        var qcount = (content.quotes || []).length;
+        html += '<div class="stat-box"><div class="num">' + qcount + '</div><div class="label">' + t.label + '</div></div>';
+      } catch(e) { html += '<div class="stat-box"><div class="num">-</div><div class="label">' + t.label + '</div></div>'; }
+    }
+    overview.innerHTML = html;
+  } catch(e) {
+    overview.innerHTML = '<div class="empty" style="grid-column:1/-1">加载失败: ' + e.message + '</div>';
+  }
+}
+
+// ===== Add Image Modal =====
+var modalFile = null;
+
+function openAddModal() {
+  document.getElementById('add-modal').classList.remove('hidden');
+  resetModalForm();
+}
+
+function closeAddModal() {
+  document.getElementById('add-modal').classList.add('hidden');
+  resetModalForm();
+}
+
+function resetModalForm() {
+  modalFile = null;
+  document.getElementById('modal-filename').value = '';
+  document.getElementById('modal-category').value = '';
+  document.getElementById('modal-file-input').value = '';
+  document.getElementById('modal-preview-container').classList.add('hidden');
+  document.getElementById('modal-status').innerHTML = '';
+  document.getElementById('drop-zone').style.opacity = '1';
+}
+
+function setModalFile(file) {
+  var ext = file.name.split('.').pop().toLowerCase();
+  var allowed = ['jpg','jpeg','png','gif'];
+  if (allowed.indexOf(ext) === -1) {
+    document.getElementById('modal-status').innerHTML = '<span style="color:var(--danger)">⚠️ 不支持 .' + ext + ' (仅 jpg/png/gif)</span>';
+    return false;
+  }
+  if (file.size > 10*1024*1024) {
+    document.getElementById('modal-status').innerHTML = '<span style="color:var(--danger)">⚠️ 文件过大 (' + (file.size/1024/1024).toFixed(1) + 'MB > 10MB)</span>';
+    return false;
+  }
+
+  modalFile = file;
+  document.getElementById('modal-filename').value = file.name;
+  document.getElementById('modal-file-info').textContent = file.name + ' (' + (file.size/1024).toFixed(1) + 'KB)';
+  document.getElementById('modal-status').innerHTML = '';
+
+  var reader = new FileReader();
+  reader.onload = function(ev) {
+    document.getElementById('modal-preview-img').src = ev.target.result;
+    document.getElementById('modal-preview-container').classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
+  return true;
+}
+
+function onModalFileSelect(e) {
+  if (e.target.files[0]) setModalFile(e.target.files[0]);
+}
+
+// Drop zone events
+document.addEventListener('DOMContentLoaded', function() {
+  var dz = document.getElementById('drop-zone');
+  if (!dz) return;
+
+  dz.addEventListener('click', function() { document.getElementById('modal-file-input').click(); });
+
+  dz.addEventListener('dragover', function(e) { e.preventDefault(); dz.classList.add('drag-over'); });
+  dz.addEventListener('dragleave', function() { dz.classList.remove('drag-over'); });
+  dz.addEventListener('drop', function(e) {
+    e.preventDefault();
+    dz.classList.remove('drag-over');
+    if (e.dataTransfer.files[0]) setModalFile(e.dataTransfer.files[0]);
+  });
+
+  // Paste support
+  document.addEventListener('paste', function(e) {
+    var modal = document.getElementById('add-modal');
+    if (modal.classList.contains('hidden')) return;
+    var items = e.clipboardData.items;
+    for (var i = 0; i < items.length; i++) {
+      if (items[i].type.indexOf('image') !== -1) {
+        var blob = items[i].getAsFile();
+        blob.name = 'pasted_' + Date.now() + '.png';
+        setModalFile(blob);
+        break;
+      }
+    }
+  });
+});
+
+async function addImageFromModal() {
+  var category = document.getElementById('modal-category').value;
+  var filename = document.getElementById('modal-filename').value.trim();
+  var status = document.getElementById('modal-status');
+
+  if (!category) { status.innerHTML = '<span style="color:var(--danger)">请选择分类</span>'; return; }
+  if (!filename) { status.innerHTML = '<span style="color:var(--danger)">请输入文件名</span>'; return; }
+  if (!modalFile) { status.innerHTML = '<span style="color:var(--danger)">请拖入或选择图片</span>'; return; }
+
+  var ext = filename.split('.').pop().toLowerCase();
+  var allowed = ['jpg','jpeg','png','gif'];
+  if (allowed.indexOf(ext) === -1) {
+    status.innerHTML = '<span style="color:var(--danger)">扩展名必须是 jpg/jpeg/png/gif</span>';
+    return;
+  }
+  var stem = filename.replace(/\.[^.]+$/, '');
+  if (!/^[\w一-鿿\-]+$/.test(stem)) {
+    status.innerHTML = '<span style="color:var(--danger)">文件名只能含中文/英文/数字/下划线/连字符</span>';
+    return;
+  }
+
+  status.innerHTML = '⏳ 上传中...';
+
+  try {
+    var reader = new FileReader();
+    var arrayBuffer = await new Promise(function(resolve, reject) {
+      reader.onload = function(e) { resolve(e.target.result); };
+      reader.onerror = reject;
+      reader.readAsArrayBuffer(modalFile);
+    });
+
+    await ghPutBinary('images/' + category + '/' + filename, arrayBuffer,
+      'add: ' + category + '/' + filename + ' (via web panel)'
+    );
+
+    status.innerHTML = '<span style="color:var(--success)">✅ 上传成功!</span>';
+    setTimeout(function() { closeAddModal(); loadDBOverview(); browseImages(); }, 800);
+  } catch(e) {
+    status.innerHTML = '<span style="color:var(--danger)">❌ ' + e.message + '</span>';
+  }
+}
+
+// ===== Browse & Delete =====
+var selectedImages = {};
+
+async function browseImages() {
+  var category = document.getElementById('browse-category').value;
+  var grid = document.getElementById('browse-grid');
+  if (!category) { grid.innerHTML = '<div class="empty">请选择分类</div>'; return; }
+
+  grid.innerHTML = '<div class="empty">加载中...</div>';
+  selectedImages = {};
+  updateDeleteUI();
+
+  try {
+    var data = await ghGet('images/' + category);
+    var rawBase = 'https://raw.githubusercontent.com/' + GH_REPO + '/main/images/' + category + '/';
+
+    var files = Array.isArray(data) ? data.filter(function(f) {
+      return f.type === 'file' && f.name !== 'manifest.json' && !f.name.startsWith('.');
+    }) : [];
+
+    document.getElementById('browse-count').textContent = files.length + ' 张图片';
+
+    if (files.length === 0) {
+      grid.innerHTML = '<div class="empty">该分类无图片</div>';
+      return;
+    }
+
+    grid.innerHTML = '';
+    for (var f of files) {
+      var imgUrl = rawBase + encodeURIComponent(f.name);
+      var div = document.createElement('div');
+      div.className = 'browse-item';
+      div.onclick = function(fname) { return function() { toggleImageSelect(fname, this); }; }(f.name);
+      div.innerHTML = '<img src="' + imgUrl + '" loading="lazy" onerror="this.src=\\'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐷</text></svg>\\'"><div class="fname">' + f.name + '</div>';
+      grid.appendChild(div);
+    }
+  } catch(e) {
+    grid.innerHTML = '<div class="empty">加载失败: ' + e.message + '</div>';
+  }
+}
+
+function toggleImageSelect(filename, el) {
+  if (selectedImages[filename]) {
+    delete selectedImages[filename];
+    el.classList.remove('selected');
+  } else {
+    selectedImages[filename] = true;
+    el.classList.add('selected');
+  }
+  updateDeleteUI();
+}
+
+function updateDeleteUI() {
+  var count = Object.keys(selectedImages).length;
+  document.getElementById('delete-actions').classList.toggle('hidden', count === 0);
+  document.getElementById('delete-count').textContent = '已选 ' + count + ' 张';
+}
+
+async function deleteSelectedImages() {
+  var filenames = Object.keys(selectedImages);
+  if (filenames.length === 0) return;
+  if (!confirm('确认删除 ' + filenames.length + ' 张图片？此操作不可撤销！')) return;
+
+  var category = document.getElementById('browse-category').value;
+  var progress = document.getElementById('delete-progress');
+  var deleted = 0;
+  var failed = 0;
+
+  for (var i = 0; i < filenames.length; i++) {
+    var fn = filenames[i];
+    progress.innerHTML = '⏳ 删除中... ' + (i+1) + '/' + filenames.length;
+
+    try {
+      var info = await ghGet('images/' + category + '/' + fn);
+      await ghDelete('images/' + category + '/' + fn, info.sha, 'delete: ' + category + '/' + fn + ' (via web panel)');
+      deleted++;
+      delete selectedImages[fn];
+    } catch(e) {
+      failed++;
+      console.error('Delete failed:', fn, e);
+    }
+  }
+
+  progress.innerHTML = '<span style="color:var(--success)">✅ 删除 ' + deleted + ' 张';
+  if (failed > 0) progress.innerHTML += ', <span style="color:var(--danger)">失败 ' + failed + ' 张</span>';
+  progress.innerHTML += '</span>';
+
+  updateDeleteUI();
+  browseImages();
+  loadDBOverview();
+}
+
+// ===== Rename =====
+async function renameSelectedImage() {
+  var filenames = Object.keys(selectedImages);
+  if (filenames.length !== 1) { alert('请只选中 1 张图片进行重命名'); return; }
+
+  var oldName = filenames[0];
+  var category = document.getElementById('browse-category').value;
+  var newName = prompt('重命名: ' + oldName + '\n输入新文件名（保留扩展名）:', oldName);
+
+  if (!newName || newName === oldName) return;
+  var ext = newName.split('.').pop().toLowerCase();
+  var allowed = ['jpg','jpeg','png','gif'];
+  if (allowed.indexOf(ext) === -1) { alert('扩展名必须是 jpg/jpeg/png/gif'); return; }
+  if (!/^[\w一-鿿\-]+\.[a-z]+$/.test(newName)) { alert('文件名只能含中文/英文/数字/下划线/连字符'); return; }
+
+  var progress = document.getElementById('delete-progress');
+  progress.innerHTML = '⏳ 重命名中...';
+
+  try {
+    var info = await ghGet('images/' + category + '/' + oldName);
+    // Download old content
+    var rawResp = await fetch(info.download_url);
+    var blob = await rawResp.blob();
+    var arrayBuffer = await blob.arrayBuffer();
+
+    // Put with new name
+    await ghPutBinary('images/' + category + '/' + newName, arrayBuffer,
+      'rename: ' + category + '/' + oldName + ' -> ' + newName
+    );
+    // Delete old
+    await ghDelete('images/' + category + '/' + oldName, info.sha,
+      'rename: remove old ' + category + '/' + oldName
+    );
+
+    progress.innerHTML = '<span style="color:var(--success)">✅ ' + oldName + ' → ' + newName + '</span>';
+    selectedImages = {};
+    updateDeleteUI();
+    browseImages();
+    loadDBOverview();
+  } catch(e) {
+    progress.innerHTML = '<span style="color:var(--danger)">❌ ' + e.message + '</span>';
+  }
+}
+
+// ===== Repository Actions =====
+async function syncRepoData() {
+  var status = document.getElementById('repo-action-status');
+  status.innerHTML = '⏳ 刷新中...';
+  try {
+    await loadDBOverview();
+    status.innerHTML = '<span style="color:var(--success)">✅ 数据已刷新</span>';
+  } catch(e) {
+    status.innerHTML = '<span style="color:var(--danger)">❌ 刷新失败: ' + e.message + '</span>';
+  }
+}
+
+async function repairExtensions() {
+  var status = document.getElementById('repo-action-status');
+  status.innerHTML = '⏳ 正在扫描扩展名不匹配的图片...';
+
+  var cats = ['pig', 'nailong', 'otto'];
+  var fixed = 0;
+  var results = [];
+
+  for (var c of cats) {
+    try {
+      var data = await ghGet('images/' + c);
+      if (!Array.isArray(data)) continue;
+
+      for (var f of data) {
+        if (f.type !== 'file' || f.name === 'manifest.json') continue;
+
+        var ext = f.name.split('.').pop().toLowerCase();
+        if (ext === 'jpeg') {
+          // Rename .jpeg to .jpg
+          var newName = f.name.replace(/\.jpeg$/, '.jpg');
+          try {
+            var content = await ghGet('images/' + c + '/' + f.name);
+            // Put with new name
+            await ghPutBinary('images/' + c + '/' + newName,
+              Uint8Array.from(atob(content.content), function(c) { return c.charCodeAt(0); }),
+              'fix: rename ' + f.name + ' -> ' + newName
+            );
+            // Delete old
+            await ghDelete('images/' + c + '/' + f.name, content.sha,
+              'fix: remove duplicate ' + f.name);
+            fixed++;
+            results.push(c + ': ' + f.name + ' → ' + newName);
+          } catch(e) {
+            results.push(c + ': FAILED ' + f.name + ' - ' + e.message);
+          }
+        }
+      }
+    } catch(e) {
+      results.push(c + ': 加载失败 - ' + e.message);
+    }
+  }
+
+  status.innerHTML = '✅ 修复 ' + fixed + ' 个文件<br>' + results.slice(0, 10).join('<br>');
+  if (results.length > 10) status.innerHTML += '<br>... 还有 ' + (results.length - 10) + ' 个';
+  loadDBOverview();
+}
+</script>
+</body>
+</html>
