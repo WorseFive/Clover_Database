@@ -49,7 +49,7 @@ def detect_format(filepath: Path) -> str | None:
 
 
 def load_existing(category: str) -> dict:
-    p = ROOT / "manifests" / f"{category}.json"
+    p = ROOT / category / "manifest.json"
     if p.exists():
         try:
             return json.loads(p.read_text(encoding='utf-8'))
@@ -80,14 +80,14 @@ def inherit_meta(category: str) -> dict:
 
 
 def write_manifest(category: str, doc: dict) -> None:
-    path = ROOT / "manifests" / f"{category}.json"
+    path = ROOT / category / "manifest.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(doc, ensure_ascii=False, indent=2) + "\n",
                     encoding='utf-8')
 
 
 def rebuild_image_manifest(category: str) -> dict | None:
-    img_dir = ROOT / "images" / category
+    img_dir = ROOT / category / "images"
     if not img_dir.is_dir():
         return None
 
@@ -139,7 +139,7 @@ def rebuild_image_manifest(category: str) -> dict | None:
 
 
 def rebuild_text_manifest(category: str) -> dict | None:
-    quotes_file = ROOT / "texts" / category / "quotes.json"
+    quotes_file = ROOT / category / "texts" / "quotes.json"
     if not quotes_file.exists():
         return None
     try:
@@ -155,21 +155,15 @@ def rebuild_text_manifest(category: str) -> dict | None:
 
 
 def discover_categories() -> list[str]:
-    """manifests/*.json ∪ 内置6类 ∪ 有实体目录的分类。"""
+    """v4: 扫描 ROOT/{cat}/manifest.json 发现全部分类。内置默认兜底。"""
     cats: dict[str, None] = {}
-    mdir = ROOT / "manifests"
-    if mdir.is_dir():
-        for f in sorted(mdir.glob("*.json")):
-            if not f.stem.startswith("_"):
-                cats[f.stem] = None
+    for d in sorted(ROOT.iterdir()):
+        if not d.is_dir() or d.name.startswith('.'):
+            continue
+        if (d / "manifest.json").exists():
+            cats[d.name] = None
     for c in BUILTIN_DEFAULTS:
         cats.setdefault(c)
-    for d in (ROOT / "images").iterdir() if (ROOT / "images").is_dir() else []:
-        if d.is_dir() and d.name != "old":
-            cats.setdefault(d.name)
-    for d in (ROOT / "texts").iterdir() if (ROOT / "texts").is_dir() else []:
-        if d.is_dir():
-            cats.setdefault(d.name)
     return list(cats)
 
 
@@ -180,8 +174,12 @@ def main():
 
     results: dict[str, dict] = {}
     for cat in categories:
-        has_images = (ROOT / "images" / cat).is_dir()
-        has_quotes = (ROOT / "texts" / cat / "quotes.json").exists()
+        img_dir = ROOT / cat / "images"
+        has_images = img_dir.is_dir() and any(
+            f.is_file() and f.suffix.lower() in ALLOWED_IMAGE_EXTS
+            for f in img_dir.iterdir()
+        )
+        has_quotes = (ROOT / cat / "texts" / "quotes.json").exists()
         if has_images:
             r = rebuild_image_manifest(cat)
         elif has_quotes:
@@ -194,20 +192,28 @@ def main():
         if r:
             results[cat] = r
 
-    # 更新顶层 manifest（仅内置6类，容错缺失项）
+    # 更新顶层 manifest（v4 分类优先格式）
     root_path = ROOT / "manifest.json"
     if root_path.exists():
-        root = json.loads(root_path.read_text(encoding='utf-8'))
-        for group in root.get("categories", {}).values():
-            for cat_name, meta in group.items():
-                if cat_name in results and isinstance(meta, dict):
-                    meta["count"] = results[cat_name].get("count", 0)
+        try:
+            root = json.loads(root_path.read_text(encoding='utf-8'))
+        except (json.JSONDecodeError, OSError):
+            root = {}
+        cats_out = root.get("categories", {})
+        for cat_name in categories:
+            if cat_name in results:
+                entry = cats_out.get(cat_name, {})
+                if isinstance(entry, dict):
+                    entry["count"] = results[cat_name].get("count", 0)
+                else:
+                    cats_out[cat_name] = {"count": results[cat_name].get("count", 0)}
+        root["categories"] = cats_out
         root_path.write_text(json.dumps(root, ensure_ascii=False, indent=2) + "\n",
                              encoding='utf-8')
 
-    # 🆕 维护分类索引（机器人启动只拉这一个文件发现全部分类）
+    # v4: 分类索引在根目录
     index = {"categories": [c for c in categories if c in results]}
-    (ROOT / "manifests" / "_index.json").write_text(
+    (ROOT / "_index.json").write_text(
         json.dumps(index, ensure_ascii=False, indent=2) + "\n", encoding='utf-8')
     print(f"\n📋 _index.json: {len(index['categories'])} 个分类")
 

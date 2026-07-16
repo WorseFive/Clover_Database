@@ -1,89 +1,49 @@
 {
   "name": "Clover_Database",
-  "version": "1.0.0",
-  "description": "Clover QQ Bot 自动回复数据库",
+  "version": "2.0.0",
+  "description": "Clover QQ Bot 自动回复数据库（v2 分类优先结构）",
   "categories": {
-    "texts": {
-      "kfc": {
-        "path": "texts/kfc",
-        "description": "疯狂星期四/KFC文案",
-        "semantic": true,
-        "triggers": [
-          "疯狂星期四",
-          "肯德基",
-          "KFC",
-          "kfc",
-          "v我50"
-        ],
-        "count": 278,
-        "manifest": "texts/kfc/manifest.json"
-      },
-      "thunder_dragon": {
-        "path": "texts/thunder_dragon",
-        "description": "雷电飞龙/部落冲突文案",
-        "semantic": true,
-        "triggers": [
-          "部落冲突",
-          "雷电飞龙",
-          "雷龙",
-          "电龙"
-        ],
-        "count": 82,
-        "manifest": "texts/thunder_dragon/manifest.json"
-      },
-      "fadian": {
-        "path": "texts/fadian",
-        "description": "发癫文学文案",
-        "semantic": true,
-        "triggers": [
-          "发癫"
-        ],
-        "count": 52,
-        "manifest": "texts/fadian/manifest.json"
-      }
+    "kfc": {
+      "path": "kfc",
+      "description": "疯狂星期四/KFC文案",
+      "has_texts": true,
+      "has_images": false,
+      "count": 278
     },
-    "images": {
-      "pig": {
-        "path": "images/pig",
-        "description": "猪猪图片",
-        "semantic": true,
-        "triggers": [
-          "猪",
-          "🐷",
-          "🐽",
-          "🐖"
-        ],
-        "count": 1085,
-        "manifest": "images/pig/manifest.json"
-      },
-      "nailong": {
-        "path": "images/nailong",
-        "description": "奶龙图片",
-        "semantic": false,
-        "triggers": [
-          "奶龙",
-          "奶蛙",
-          "🥛🐲",
-          "🥛🐉"
-        ],
-        "count": 127,
-        "manifest": "images/nailong/manifest.json"
-      },
-      "otto": {
-        "path": "images/otto",
-        "description": "电棍/otto表情包",
-        "semantic": false,
-        "triggers": [
-          "动物园",
-          "电棍",
-          "otto",
-          "侯国玉",
-          "炫狗",
-          "张顺飞"
-        ],
-        "count": 13,
-        "manifest": "images/otto/manifest.json"
-      }
+    "fadian": {
+      "path": "fadian",
+      "description": "发癫文学文案",
+      "has_texts": true,
+      "has_images": false,
+      "count": 52
+    },
+    "thunder_dragon": {
+      "path": "thunder_dragon",
+      "description": "雷电飞龙/部落冲突文案",
+      "has_texts": true,
+      "has_images": false,
+      "count": 82
+    },
+    "pig": {
+      "path": "pig",
+      "description": "猪猪图片 (来源: pighub.top)",
+      "has_texts": false,
+      "has_images": true,
+      "count": 1085
+    },
+    "nailong": {
+      "path": "nailong",
+      "description": "奶龙图片",
+      "has_texts": false,
+      "has_images": true,
+      "count": 127
+    },
+    "otto": {
+      "path": "otto",
+      "description": "电棍/otto表情包",
+      "has_texts": false,
+      "has_images": true,
+      "count": 13
     }
   }
 }

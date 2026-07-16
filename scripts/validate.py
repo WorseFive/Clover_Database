@@ -35,8 +35,8 @@ FILENAME_PATTERN = re.compile(r'^[一-鿿\w\-]+\.\w+$')
 # 禁止纯数字/纯乱码文件名
 MEANINGFUL_PATTERN = re.compile(r'[一-鿿\w]')
 
-TEXT_CATEGORIES = {"kfc", "thunder_dragon", "fadian"}
-IMAGE_CATEGORIES = {"pig", "nailong", "otto"}
+# v4 分类优先：分类不再按格式硬编码，动态发现 ROOT/{cat}/manifest.json
+IGNORE_DIRS = {"scripts", "docs", "images", ".git", "__pycache__", "node_modules"}
 
 VALID_MATCH_MODES = {"contains", "exact"}
 # v3: reply 插件 v1.2 规则组 — 规则层模式额外允许 regex
@@ -94,19 +94,30 @@ def check_regex_safe(pattern: str) -> str:
 
 
 def discover_categories() -> tuple[set, set]:
-    """动态发现分类（v2, 配合用户自建分类）：
-    texts/<cat>/quotes.json 存在 → 文本类；images/<cat>/ 存在 → 图片类。
-    内置6类兜底。"""
-    texts = set(TEXT_CATEGORIES)
-    images = set(IMAGE_CATEGORIES)
-    tdir, idir = ROOT / "texts", ROOT / "images"
-    if tdir.is_dir():
-        for d in tdir.iterdir():
-            if d.is_dir() and (d / "quotes.json").exists():
-                texts.add(d.name)
-    if idir.is_dir():
-        for d in idir.iterdir():
-            if d.is_dir() and d.name != "old":
+    """动态发现分类（v4, 分类优先结构）：
+    ROOT/{cat}/texts/quotes.json 存在 → 文本类
+    ROOT/{cat}/images/ 有图片文件 → 图片类
+    一个分类可以同时是文本类和图片类。"""
+    texts = set()
+    images = set()
+    for d in ROOT.iterdir():
+        if not d.is_dir() or d.name.startswith('.') or d.name in IGNORE_DIRS:
+            continue
+        manifest = d / "manifest.json"
+        if not manifest.exists():
+            continue
+        if (d / "texts" / "quotes.json").exists():
+            texts.add(d.name)
+        img_dir = d / "images"
+        if img_dir.is_dir():
+            try:
+                has_images = any(
+                    f.is_file() and f.suffix.lower() in ALLOWED_IMAGE_EXTENSIONS
+                    for f in img_dir.iterdir()
+                )
+            except OSError:
+                has_images = False
+            if has_images:
                 images.add(d.name)
     return texts, images
 
@@ -232,13 +243,13 @@ class Validator:
     # ── 文本验证 ──────────────────────
 
     def validate_text_dir(self, dirpath: Path, category: str):
-        """验证文本目录"""
+        """验证文本目录（v4: dirpath = ROOT/{cat}/texts）"""
         quotes_file = dirpath / "quotes.json"
-        manifest_file = ROOT / "manifests" / f"{category}.json"
+        manifest_file = ROOT / category / "manifest.json"
 
         # manifest 存在且有效
         if not manifest_file.exists():
-            self.error(f"[{category}] 缺少 manifests/{category}.json")
+            self.error(f"[{category}] 缺少 {category}/manifest.json")
             return
         manifest = self._load_json(manifest_file, category)
         if manifest is None:
@@ -289,11 +300,11 @@ class Validator:
     # ── 图片目录验证 ──────────────────────
 
     def validate_image_dir(self, dirpath: Path, category: str):
-        """验证图片目录"""
-        manifest_file = ROOT / "manifests" / f"{category}.json"
+        """验证图片目录（v4: dirpath = ROOT/{cat}/images）"""
+        manifest_file = ROOT / category / "manifest.json"
 
         if not manifest_file.exists():
-            self.error(f"[{category}] 缺少 manifests/{category}.json")
+            self.error(f"[{category}] 缺少 {category}/manifest.json")
             return
         manifest = self._load_json(manifest_file, category)
         if manifest is None:
@@ -405,21 +416,33 @@ class Validator:
     # ── 顶层 manifest ──────────────────────
 
     def validate_root_manifest(self):
-        """验证顶层 manifest.json"""
+        """验证顶层 manifest.json（v4 分类优先格式：flat categories, has_texts/has_images）"""
         root_manifest = self._load_json(ROOT / "manifest.json", "ROOT")
         if root_manifest is None:
             return
 
         cats = root_manifest.get("categories", {})
-        for cat_type in ("texts", "images"):
-            if cat_type not in cats:
-                self.error(f"[ROOT] manifest 缺少 categories.{cat_type}")
+        if not cats:
+            self.warn("[ROOT] manifest.json categories 为空")
+            return
+        for cat_name, cat_info in cats.items():
+            if not isinstance(cat_info, dict):
+                self.error(f"[ROOT] categories.{cat_name} 格式错误")
                 continue
-            for cat_name, cat_info in cats[cat_type].items():
-                expected_path = cat_info.get("path", "")
-                full_path = ROOT / expected_path
-                if not full_path.exists():
-                    self.error(f"[ROOT] 路径不存在: {expected_path}")
+            expected_path = cat_info.get("path", cat_name)
+            full_path = ROOT / expected_path
+            if not full_path.exists():
+                self.error(f"[ROOT] 路径不存在: {expected_path}")
+            # v4: 检查声明的 has_texts/has_images 与实际一致
+            if cat_info.get("has_texts"):
+                if not (full_path / "texts" / "quotes.json").exists():
+                    self.error(f"[ROOT] {cat_name} 声明 has_texts 但缺少 texts/quotes.json")
+            if cat_info.get("has_images"):
+                img_dir = full_path / "images"
+                if not img_dir.is_dir() or not any(
+                    f.is_file() for f in img_dir.iterdir()
+                ):
+                    self.error(f"[ROOT] {cat_name} 声明 has_images 但 images/ 无文件")
 
 
     # ── 工具函数 ──────────────────────
@@ -450,20 +473,20 @@ class Validator:
 
         # 验证分类 manifest 的 match_mode/semantic 字段合法性
         print("\n🏷️ manifest 字段验证:")
-        mdir = ROOT / "manifests"
         index_cats = []
-        if (mdir / "_index.json").exists():
+        index_file = ROOT / "_index.json"
+        if index_file.exists():
             try:
                 index_cats = json.loads(
-                    (mdir / "_index.json").read_text(encoding='utf-8')
+                    index_file.read_text(encoding='utf-8')
                 ).get("categories", [])
                 self.ok()
             except json.JSONDecodeError as e:
                 self.error(f"[_index] JSON 解析失败: {e}")
         for cat in sorted(text_cats | image_cats):
-            mpath = mdir / f"{cat}.json"
+            mpath = ROOT / cat / "manifest.json"
             if not mpath.exists():
-                self.error(f"[{cat}] manifest 缺失: manifests/{cat}.json")
+                self.error(f"[{cat}] manifest 缺失: {cat}/manifest.json")
                 continue
             try:
                 m = json.loads(mpath.read_text(encoding='utf-8'))
@@ -486,25 +509,25 @@ class Validator:
             if not m.get("triggers"):
                 self.warn(f"[{cat}] 无触发词（自动回复不会触发）")
             if index_cats and cat not in index_cats:
-                self.error(f"[{cat}] 未登记到 manifests/_index.json")
+                self.error(f"[{cat}] 未登记到 _index.json")
 
-        # 验证文本目录
+        # 验证文本目录（v4: ROOT/{cat}/texts）
         print("\n📝 文本类验证:")
         for cat in sorted(text_cats):
-            dirpath = ROOT / "texts" / cat
+            dirpath = ROOT / cat / "texts"
             if dirpath.exists():
                 self.validate_text_dir(dirpath, cat)
             else:
-                self.error(f"[{cat}] 目录不存在")
+                self.error(f"[{cat}] texts/ 目录不存在")
 
-        # 验证图片目录
+        # 验证图片目录（v4: ROOT/{cat}/images）
         print("\n🖼️ 图片类验证:")
         for cat in sorted(image_cats):
-            dirpath = ROOT / "images" / cat
+            dirpath = ROOT / cat / "images"
             if dirpath.exists():
                 self.validate_image_dir(dirpath, cat)
             else:
-                self.error(f"[{cat}] 目录不存在")
+                self.error(f"[{cat}] images/ 目录不存在")
 
         # ── 报告 ──
         print("\n" + "═" * 60)
