@@ -39,6 +39,58 @@ TEXT_CATEGORIES = {"kfc", "thunder_dragon", "fadian"}
 IMAGE_CATEGORIES = {"pig", "nailong", "otto"}
 
 VALID_MATCH_MODES = {"contains", "exact"}
+# v3: reply 插件 v1.2 规则组 — 规则层模式额外允许 regex
+VALID_RULE_MODES = {"contains", "exact", "regex"}
+
+
+def check_regex_safe(pattern: str) -> str:
+    """与插件 matcher.validate_regex 同一套安全口径（长度/可编译/
+    空串匹配/嵌套量词启发式）。返回 "" 表示安全。"""
+    pattern = str(pattern or "").strip()
+    if not pattern:
+        return "正则为空"
+    if len(pattern) > 64:
+        return "正则超长（上限64字符）"
+    try:
+        compiled = re.compile(pattern, re.IGNORECASE)
+    except re.error as e:
+        return f"正则语法错误：{e}"
+    if compiled.search(""):
+        return "正则可匹配空串"
+    # 嵌套量词/量词分支组启发式（灾难回溯）
+    stack, i, n = [], 0, len(pattern)
+    while i < n:
+        ch = pattern[i]
+        if ch == "\\":
+            i += 2
+            continue
+        if ch == "[":
+            i += 1
+            if i < n and pattern[i] == "^":
+                i += 1
+            if i < n and pattern[i] == "]":
+                i += 1
+            while i < n and pattern[i] != "]":
+                i += 2 if pattern[i] == "\\" else 1
+            i += 1
+            continue
+        if ch == "(":
+            stack.append(False)
+            i += 1
+            continue
+        if ch == ")":
+            body = stack.pop() if stack else False
+            i += 1
+            quantified = i < n and pattern[i] in "+*{"
+            if quantified and body:
+                return "嵌套量词/量词分支组（灾难回溯风险）"
+            if stack:
+                stack[-1] = stack[-1] or body or quantified
+            continue
+        if ch in "+*|{" and stack:
+            stack[-1] = True
+        i += 1
+    return ""
 
 
 def discover_categories() -> tuple[set, set]:
@@ -295,6 +347,61 @@ class Validator:
         else:
             self.ok(f"[{category}] ✓ {actual_count} 张图片, manifest一致")
 
+    # ── 规则组验证 (v3, reply 插件 v1.2) ──────────────────
+
+    def _validate_rules(self, cat: str, rules, manifest: dict):
+        """rules = [{id, triggers, mode}]：结构、模式、编号唯一、
+        跨规则触发词不重复、regex 安全、镜像字段一致。"""
+        if not isinstance(rules, list):
+            self.error(f"[{cat}] rules 必须是数组: {type(rules).__name__}")
+            return
+        seen_ids, seen_words = set(), set()
+        for i, r in enumerate(rules):
+            if not isinstance(r, dict):
+                self.error(f"[{cat}] rules[{i}] 不是对象")
+                continue
+            rid = r.get("id")
+            if not isinstance(rid, int) or rid < 1:
+                self.error(f"[{cat}] rules[{i}] id 非法: {rid!r}")
+            elif rid in seen_ids:
+                self.error(f"[{cat}] rules 重复编号: #{rid}")
+            else:
+                seen_ids.add(rid)
+            mode = r.get("mode", "contains")
+            if mode not in VALID_RULE_MODES:
+                self.error(f"[{cat}] rules[{i}] mode 非法: {mode!r}"
+                           f" (仅允许 contains/exact/regex)")
+                continue
+            trigs = r.get("triggers")
+            if not isinstance(trigs, list) or not trigs:
+                self.error(f"[{cat}] rules[{i}] triggers 缺失或为空")
+                continue
+            for t in trigs:
+                low = str(t).strip().lower()
+                if not low:
+                    self.error(f"[{cat}] rules[{i}] 含空触发词")
+                    continue
+                if low in seen_words:
+                    self.error(f"[{cat}] 触发词跨规则重复: {t!r}（模式归属歧义）")
+                seen_words.add(low)
+                if mode == "regex":
+                    reason = check_regex_safe(t)
+                    if reason:
+                        self.error(f"[{cat}] rules[{i}] 危险正则 {t!r}: {reason}")
+        # 镜像一致性：triggers 应等于全部规则触发词拍平去重
+        flat = []
+        for r in rules:
+            if isinstance(r, dict):
+                for t in r.get("triggers") or []:
+                    if t not in flat:
+                        flat.append(t)
+        mirror = manifest.get("triggers") or []
+        if flat and list(mirror) != flat:
+            self.warn(f"[{cat}] triggers 镜像与 rules 拍平不一致"
+                      f"（旧版插件会看到过期触发词）")
+        else:
+            self.ok()
+
     # ── 顶层 manifest ──────────────────────
 
     def validate_root_manifest(self):
@@ -368,6 +475,10 @@ class Validator:
                 self.error(f"[{cat}] match_mode 非法: {mode!r} (仅允许 contains/exact)")
             else:
                 self.ok()
+            # v3: rules 规则组结构校验（可缺失 — 插件从旧字段兜底）
+            rules = m.get("rules")
+            if rules is not None:
+                self._validate_rules(cat, rules, m)
             if not isinstance(m.get("semantic", False), bool):
                 self.error(f"[{cat}] semantic 必须是布尔值: {m.get('semantic')!r}")
             else:

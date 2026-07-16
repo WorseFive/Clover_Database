@@ -59,7 +59,9 @@ def load_existing(category: str) -> dict:
 
 
 def inherit_meta(category: str) -> dict:
-    """triggers/mode/semantic/description 继承现有 manifest > 出厂默认。"""
+    """triggers/mode/semantic/description 继承现有 manifest > 出厂默认。
+    v3 (2026-07-16): 继承 rules/next_rule_id（reply 插件 v1.2 规则组），
+    缺失时不合成——插件侧 rules_from_doc 会从 triggers/match_mode 兜底。"""
     old = load_existing(category)
     def_triggers, def_desc = BUILTIN_DEFAULTS.get(category, ([], f"{category} 分类"))
     meta = {
@@ -68,6 +70,10 @@ def inherit_meta(category: str) -> dict:
         "match_mode": old.get("match_mode", "contains"),
         "triggers": old.get("triggers") or def_triggers,
     }
+    if isinstance(old.get("rules"), list) and old["rules"]:
+        meta["rules"] = old["rules"]
+    if old.get("next_rule_id"):
+        meta["next_rule_id"] = old["next_rule_id"]
     if old.get("created_by"):
         meta["created_by"] = old["created_by"]
     return meta
