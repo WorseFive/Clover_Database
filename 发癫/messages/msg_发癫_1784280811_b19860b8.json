@@ -1,0 +1,25 @@
+{
+  "id": "msg_发癫_1784280811_b19860b8",
+  "content": [
+    {
+      "type": "text",
+      "text": "🎶𝒅𝒂𝒓𝒍𝒊𝒏𝒈 𝒉𝒐𝒍𝒅 𝒎𝒚 𝒉𝒂𝒏𝒅🎶NOTHING BEATS A JET2 HOLIDAY💥💥💥💥💥😱😱😱AND RIGHT NOW YOU CAN SAVE 50 POUNDS PER PERSON 👍👍👍💥👍💥👍💅💅💅THAT’S 200 POUNDS OFF FOR A FAMILY OF FOUR🥳🥳🥳🤩🤩🤩🤩💥💥💥"
+    }
+  ],
+  "hash": "7501652dbf61bfe8",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "jet2holiday",
+        "jet2",
+        "50pounds",
+        "perperson"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
