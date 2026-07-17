@@ -1,0 +1,21 @@
+{
+  "category": "舰娘",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "舰娘",
+        "砍口垒",
+        "KanColle"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "舰娘",
+    "砍口垒",
+    "KanColle"
+  ],
+  "match_mode": "contains"
+}
