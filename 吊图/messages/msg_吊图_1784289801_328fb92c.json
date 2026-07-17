@@ -1,0 +1,22 @@
+{
+  "id": "msg_吊图_1784289801_328fb92c",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/吊图/img_289d7ab86490.jpg"
+    }
+  ],
+  "hash": "6315291fe7197d4d",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "清朝老图"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
