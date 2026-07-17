@@ -1,0 +1,17 @@
+{
+  "category": "manga",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "漫画表情包"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "漫画表情包"
+  ],
+  "match_mode": "contains"
+}
