@@ -1,0 +1,24 @@
+{
+  "id": "msg_default_1784277202_34c94917",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/default/img_b401833206de.jpg"
+    }
+  ],
+  "hash": "75bb258f943e546f",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "热爱生活",
+        "希望你能幸福",
+        "你所热爱的"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
