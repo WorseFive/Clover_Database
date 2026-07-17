@@ -8,7 +8,23 @@
     "肯德基",
     "KFC",
     "kfc",
-    "v我50"
+    "v我50",
+    "test_特殊_123"
   ],
-  "count": 278
+  "count": 278,
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "疯狂星期四",
+        "肯德基",
+        "KFC",
+        "kfc",
+        "v我50",
+        "test_特殊_123"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2
 }
