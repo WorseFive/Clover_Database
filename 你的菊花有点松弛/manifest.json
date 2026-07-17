@@ -1,0 +1,21 @@
+{
+  "category": "你的菊花有点松弛",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "提肛",
+        "男同",
+        "男的来了"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "提肛",
+    "男同",
+    "男的来了"
+  ],
+  "match_mode": "contains"
+}
