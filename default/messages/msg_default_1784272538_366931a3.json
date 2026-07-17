@@ -1,0 +1,22 @@
+{
+  "id": "msg_default_1784272538_366931a3",
+  "content": [
+    {
+      "type": "text",
+      "text": "分界测试-未知分类"
+    }
+  ],
+  "hash": "9963a5ec229a9f3a",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "你好123272464"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
