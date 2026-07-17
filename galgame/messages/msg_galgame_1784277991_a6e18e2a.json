@@ -1,0 +1,27 @@
+{
+  "id": "msg_galgame_1784277991_a6e18e2a",
+  "content": [
+    {
+      "type": "text",
+      "text": "玫瑰不用长高，恋者自会弯腰"
+    }
+  ],
+  "hash": "72e0a10b6e7c3412",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "爱莲说",
+        "萝莉",
+        "loli",
+        "lolicon",
+        "萝莉控",
+        "直接电"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
