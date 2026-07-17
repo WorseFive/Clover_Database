@@ -21,7 +21,8 @@
   ],
   "match_mode": "contains",
   "message_ids": [
-    "msg_galgame_1784273761_9d882480"
+    "msg_galgame_1784273761_9d882480",
+    "msg_galgame_1784273771_487b885f"
   ],
-  "message_count": 1
+  "message_count": 2
 }
