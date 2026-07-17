@@ -19,5 +19,9 @@
     "男同",
     "男的来了"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_sex_1784281214_b2dcf6b8"
+  ],
+  "message_count": 1
 }
