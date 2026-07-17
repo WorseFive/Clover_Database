@@ -1,0 +1,23 @@
+{
+  "id": "msg_吊图_1784288844_8b8fcfae",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/吊图/img_39a1d9fa961b.jpg"
+    }
+  ],
+  "hash": "da1bee8b53548b58",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "逆转裁判",
+        "手机消毒"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
