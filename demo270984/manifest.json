@@ -15,5 +15,9 @@
     "t1",
     "t2"
   ],
-  "match_mode": "exact"
+  "match_mode": "exact",
+  "message_ids": [
+    "msg_demo270984_1784271101_04f4914f"
+  ],
+  "message_count": 1
 }
