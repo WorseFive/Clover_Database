@@ -8,8 +8,7 @@
     "肯德基",
     "KFC",
     "kfc",
-    "v我50",
-    "test_added_word"
+    "v我50"
   ],
   "count": 278,
   "rules": [
@@ -20,8 +19,7 @@
         "肯德基",
         "KFC",
         "kfc",
-        "v我50",
-        "test_added_word"
+        "v我50"
       ],
       "mode": "contains"
     }
