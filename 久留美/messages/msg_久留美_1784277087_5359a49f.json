@@ -1,0 +1,22 @@
+{
+  "id": "msg_久留美_1784277087_5359a49f",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/久留美/img_dddd48d2dd45.jpg"
+    }
+  ],
+  "hash": "00fb5018ec4b4a70",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "川哥"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
