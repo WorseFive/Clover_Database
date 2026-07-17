@@ -1,0 +1,23 @@
+{
+  "id": "msg_demotest_1784269562_bf7e93e6",
+  "content": [
+    {
+      "type": "text",
+      "text": "这是被回复的测试消息-v2demo"
+    }
+  ],
+  "hash": "ac4e5e0ebfdb24e9",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "回复添加词",
+        "demo123"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
