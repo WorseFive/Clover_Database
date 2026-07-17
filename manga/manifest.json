@@ -13,5 +13,9 @@
   "triggers": [
     "漫画表情包"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_manga_1784277247_0e5696a5"
+  ],
+  "message_count": 1
 }
