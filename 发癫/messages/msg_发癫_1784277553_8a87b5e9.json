@@ -1,0 +1,25 @@
+{
+  "id": "msg_发癫_1784277553_8a87b5e9",
+  "content": [
+    {
+      "type": "text",
+      "text": "| □ 确认您是真人      ☁️\n|               CLOUDFLARE\n|                   ꯭隐꯭私·条꯭款꯭"
+    }
+  ],
+  "hash": "dfd3adb830065931",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "cloudflare",
+        "转人工",
+        "确认您是真人",
+        "captcha"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
