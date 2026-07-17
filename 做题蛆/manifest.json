@@ -1,0 +1,21 @@
+{
+  "category": "做题蛆",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "做题蛆",
+        "做题TV",
+        "衡水中学"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "做题蛆",
+    "做题TV",
+    "衡水中学"
+  ],
+  "match_mode": "contains"
+}
