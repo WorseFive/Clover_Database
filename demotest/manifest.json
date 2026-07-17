@@ -15,5 +15,9 @@
     "测试触发",
     "test123"
   ],
-  "match_mode": "exact"
+  "match_mode": "exact",
+  "message_ids": [
+    "msg_demotest_1784269562_bf7e93e6"
+  ],
+  "message_count": 1
 }
