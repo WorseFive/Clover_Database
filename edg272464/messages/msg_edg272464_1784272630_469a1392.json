@@ -1,0 +1,22 @@
+{
+  "id": "msg_edg272464_1784272630_469a1392",
+  "content": [
+    {
+      "type": "text",
+      "text": "去重边界测试272464"
+    }
+  ],
+  "hash": "84c257fa0b9532f2",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "dup"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
