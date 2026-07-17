@@ -1,0 +1,23 @@
+{
+  "category": "galgame",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "galgame",
+        "Galgame",
+        "旮旯给木",
+        "galagame"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "galgame",
+    "Galgame",
+    "旮旯给木",
+    "galagame"
+  ],
+  "match_mode": "contains"
+}
