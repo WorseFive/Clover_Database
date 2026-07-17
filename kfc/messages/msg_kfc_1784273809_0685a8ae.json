@@ -1,0 +1,22 @@
+{
+  "id": "msg_kfc_1784273809_0685a8ae",
+  "content": [
+    {
+      "type": "text",
+      "text": "github-sync-1784273796"
+    }
+  ],
+  "hash": "1dd1ce94b7b71bcc",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "gh-sync-test"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
