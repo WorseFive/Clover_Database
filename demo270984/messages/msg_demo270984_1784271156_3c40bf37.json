@@ -1,0 +1,22 @@
+{
+  "id": "msg_demo270984_1784271156_3c40bf37",
+  "content": [
+    {
+      "type": "text",
+      "text": "v2去重目标消息"
+    }
+  ],
+  "hash": "b9cff2089452e485",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "d1"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
