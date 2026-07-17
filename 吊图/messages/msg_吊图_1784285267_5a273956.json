@@ -1,0 +1,47 @@
+{
+  "id": "msg_吊图_1784285267_5a273956",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/吊图/img_1879570d86f9.jpg"
+    },
+    {
+      "type": "text",
+      "text": "（绑紧）\n（拍拍）"
+    },
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/吊图/img_cc85cf871c3d.jpg"
+    },
+    {
+      "type": "text",
+      "text": "（涂抹）"
+    },
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/吊图/img_ce1363d8ee0c.jpg"
+    },
+    {
+      "type": "text",
+      "text": "（扎）"
+    },
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/吊图/img_2e8d6440c8af.jpg"
+    }
+  ],
+  "hash": "c13e2c03ef036a3f",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "医疗事故",
+        "扎针"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
