@@ -1,0 +1,23 @@
+{
+  "category": "导管",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "导管",
+        "道馆",
+        "倒灌",
+        "这倒提醒我了"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "导管",
+    "道馆",
+    "倒灌",
+    "这倒提醒我了"
+  ],
+  "match_mode": "contains"
+}
