@@ -1,0 +1,21 @@
+{
+  "category": "废话",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "废话文学",
+        "我去不早说",
+        "听君一席话"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "废话文学",
+    "我去不早说",
+    "听君一席话"
+  ],
+  "match_mode": "contains"
+}
