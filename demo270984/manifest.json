@@ -1,0 +1,19 @@
+{
+  "category": "demo270984",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "t1",
+        "t2"
+      ],
+      "mode": "exact"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "t1",
+    "t2"
+  ],
+  "match_mode": "exact"
+}
