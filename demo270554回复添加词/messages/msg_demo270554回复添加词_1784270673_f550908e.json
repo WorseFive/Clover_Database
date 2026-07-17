@@ -1,0 +1,22 @@
+{
+  "id": "msg_demo270554回复添加词_1784270673_f550908e",
+  "content": [
+    {
+      "type": "text",
+      "text": "这是被回复的测试消息-v2demo"
+    }
+  ],
+  "hash": "ac4e5e0ebfdb24e9",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "demo123"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
