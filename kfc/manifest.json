@@ -24,5 +24,9 @@
       "mode": "contains"
     }
   ],
-  "next_rule_id": 2
+  "next_rule_id": 2,
+  "message_ids": [
+    "msg_kfc_1784273688_b3848f96"
+  ],
+  "message_count": 1
 }
