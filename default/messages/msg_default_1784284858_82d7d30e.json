@@ -1,0 +1,23 @@
+{
+  "id": "msg_default_1784284858_82d7d30e",
+  "content": [
+    {
+      "type": "text",
+      "text": "v231784284853A"
+    }
+  ],
+  "hash": "773065cc924be089",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "v23k1784284853a",
+        "v23k1784284853b"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
