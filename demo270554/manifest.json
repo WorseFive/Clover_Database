@@ -1,0 +1,19 @@
+{
+  "category": "demo270554",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "测试触发",
+        "test123"
+      ],
+      "mode": "exact"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "测试触发",
+    "test123"
+  ],
+  "match_mode": "exact"
+}
