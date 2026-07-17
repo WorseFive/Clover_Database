@@ -21,5 +21,9 @@
     "小粉红",
     "爱国饭"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_华为_1784278396_cd687441"
+  ],
+  "message_count": 1
 }
