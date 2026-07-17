@@ -1,0 +1,17 @@
+{
+  "category": "发癫",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "发癫文案"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "发癫文案"
+  ],
+  "match_mode": "contains"
+}
