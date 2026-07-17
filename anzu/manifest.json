@@ -1,0 +1,21 @@
+{
+  "category": "anzu",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "杏铃铃",
+        "鹰仓杏铃",
+        "笨蛋黄毛"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "杏铃铃",
+    "鹰仓杏铃",
+    "笨蛋黄毛"
+  ],
+  "match_mode": "contains"
+}
