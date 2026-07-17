@@ -13,5 +13,9 @@
   "triggers": [
     "发癫文案"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_发癫_1784277387_ce3ddd95"
+  ],
+  "message_count": 1
 }
