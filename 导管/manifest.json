@@ -19,5 +19,9 @@
     "倒灌",
     "这倒提醒我了"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_导管_1784273648_f9cfe98f"
+  ],
+  "message_count": 1
 }
