@@ -10,14 +10,22 @@
         "galagame"
       ],
       "mode": "contains"
+    },
+    {
+      "id": 2,
+      "triggers": [
+        "mgjb"
+      ],
+      "mode": "contains"
     }
   ],
-  "next_rule_id": 2,
+  "next_rule_id": 3,
   "triggers": [
     "galgame",
     "Galgame",
     "旮旯给木",
-    "galagame"
+    "galagame",
+    "mgjb"
   ],
   "match_mode": "contains",
   "message_ids": [
