@@ -17,5 +17,9 @@
     "做题TV",
     "衡水中学"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_做题蛆_1784278522_6ed0495e"
+  ],
+  "message_count": 1
 }
