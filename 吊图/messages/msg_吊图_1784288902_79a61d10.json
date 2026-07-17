@@ -1,0 +1,23 @@
+{
+  "id": "msg_吊图_1784288902_79a61d10",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/吊图/img_c8ddf580c565.jpg"
+    }
+  ],
+  "hash": "4421c8a7181adf55",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "避孕套",
+        "套套"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
