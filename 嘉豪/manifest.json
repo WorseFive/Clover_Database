@@ -1,0 +1,19 @@
+{
+  "category": "嘉豪",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "豪情万丈",
+        "嘉豪"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "豪情万丈",
+    "嘉豪"
+  ],
+  "match_mode": "contains"
+}
