@@ -1,0 +1,24 @@
+{
+  "id": "msg_sex_1784293163_c01b5cc7",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/sex/img_3ae32c644c65.jpg"
+    }
+  ],
+  "hash": "270828d265acdf3b",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "肛塞",
+        "肛珠",
+        "扩肛"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
