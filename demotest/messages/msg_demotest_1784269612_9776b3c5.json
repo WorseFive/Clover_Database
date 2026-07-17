@@ -1,0 +1,22 @@
+{
+  "id": "msg_demotest_1784269612_9776b3c5",
+  "content": [
+    {
+      "type": "text",
+      "text": "去重专用消息v2"
+    }
+  ],
+  "hash": "07b895bb4c00a7d6",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "去重触发词"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
