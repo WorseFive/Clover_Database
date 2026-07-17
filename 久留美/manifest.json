@@ -1,0 +1,27 @@
+{
+  "category": "久留美",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "韭菜",
+        "久留美",
+        "梭哈",
+        "股票",
+        "fx",
+        "关灯吃面"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "韭菜",
+    "久留美",
+    "梭哈",
+    "股票",
+    "fx",
+    "关灯吃面"
+  ],
+  "match_mode": "contains"
+}
