@@ -1,0 +1,24 @@
+{
+  "id": "msg_manga_1784277247_0e5696a5",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/manga/img_7e24f2170234.jpg"
+    }
+  ],
+  "hash": "2034747215a13b02",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "热爱生活",
+        "希望你能幸福",
+        "你所热爱的"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
