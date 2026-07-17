@@ -17,5 +17,9 @@
     "我去不早说",
     "听君一席话"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_废话_1784278588_d5918acb"
+  ],
+  "message_count": 1
 }
