@@ -1,0 +1,24 @@
+{
+  "id": "msg_galgame_1784278770_c451a8b4",
+  "content": [
+    {
+      "type": "text",
+      "text": "就是啊，一般玩rh的有三种话术“不r不玩\"“你都玩gal还在意这个，太敏感了\"“都入了”"
+    }
+  ],
+  "hash": "c1b6ff6c35e1c3fd",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "R18",
+        "成人向",
+        "r18"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
