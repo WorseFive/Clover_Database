@@ -1,0 +1,23 @@
+{
+  "id": "msg_demo270984_1784271101_04f4914f",
+  "content": [
+    {
+      "type": "text",
+      "text": "v2回复添加目标消息"
+    }
+  ],
+  "hash": "c09626e6c2d6809c",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "kw1",
+        "kw2"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
