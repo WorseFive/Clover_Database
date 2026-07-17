@@ -13,5 +13,9 @@
   "triggers": [
     "不幸的人生各有各的不幸"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_misery_1784277734_211f54bc"
+  ],
+  "message_count": 1
 }
