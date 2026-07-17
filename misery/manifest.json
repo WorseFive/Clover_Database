@@ -1,0 +1,17 @@
+{
+  "category": "misery",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "不幸的人生各有各的不幸"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "不幸的人生各有各的不幸"
+  ],
+  "match_mode": "contains"
+}
