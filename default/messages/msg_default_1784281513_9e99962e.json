@@ -1,0 +1,23 @@
+{
+  "id": "msg_default_1784281513_9e99962e",
+  "content": [
+    {
+      "type": "text",
+      "text": "v23真机验证内容Alpha"
+    }
+  ],
+  "hash": "4eeb91752d6fb4f0",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "v23核验词甲",
+        "v23附加词乙"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
