@@ -1,0 +1,22 @@
+{
+  "id": "msg_edg272464_1784272507_48f59f3c",
+  "content": [
+    {
+      "type": "text",
+      "text": "分界测试-已知分类"
+    }
+  ],
+  "hash": "dd577bf833c8da98",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "已知分类触发"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
