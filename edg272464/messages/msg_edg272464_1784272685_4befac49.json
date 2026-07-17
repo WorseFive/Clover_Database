@@ -1,0 +1,22 @@
+{
+  "id": "msg_edg272464_1784272685_4befac49",
+  "content": [
+    {
+      "type": "text",
+      "text": "同步状态测试272464"
+    }
+  ],
+  "hash": "478edf0741e15924",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "sync"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
