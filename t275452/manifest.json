@@ -13,5 +13,9 @@
   "triggers": [
     "刁钻测试"
   ],
-  "match_mode": "exact"
+  "match_mode": "exact",
+  "message_ids": [
+    "msg_t275452_1784275544_005460e7"
+  ],
+  "message_count": 1
 }
