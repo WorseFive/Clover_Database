@@ -1,0 +1,17 @@
+{
+  "category": "edg272464",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "边界"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "边界"
+  ],
+  "match_mode": "contains"
+}
