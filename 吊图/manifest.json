@@ -1,0 +1,17 @@
+{
+  "category": "吊图",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "来点吊图"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "来点吊图"
+  ],
+  "match_mode": "contains"
+}
