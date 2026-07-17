@@ -1,0 +1,22 @@
+{
+  "id": "msg_t275452_1784275576_15cc4dca",
+  "content": [
+    {
+      "type": "text",
+      "text": "去重消息-t275452"
+    }
+  ],
+  "hash": "774ed25418608a35",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "dup1"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
