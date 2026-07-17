@@ -1,0 +1,14 @@
+{
+  "id": "msg_做题蛆_1784278522_6ed0495e",
+  "content": [
+    {
+      "type": "text",
+      "text": "辛巴我跟你说个事\nv＝s/t  平均速度\nρ＝m/V  密度\nG＝mg  重力\np＝F/S  压强\np＝ρgh  液体压强\nF₁L₁＝F₂L₂  杠杆原理\nW＝FscosΘ  机械功\nP＝W/t  机械功率\nη＝W₁/W₀  效率\nQ＝cmΔt  热量\nI＝U/R  电流\nR＝R₁+R₂+…  串联电阻\n1/R＝1/R₁+1/R₂+…  并联电阻\nW＝UIt  电功\nP＝UI  电功率\nc＝λf  波速\nv＝gt  竖直方向速度\nx＝v₀t  位移\ny＝1/2gt²  竖直方向位移\nv＝v₀+at  瞬时速度\nv²-v₀²＝2as  位移速度\nω＝2π/T  角速度\na＝v²/r＝ω²r＝ωv  向心加速度\nF＝ma＝mv²/r  向心力\nF＝ma  合外力，牛顿第二定律\nF＝GMm/r²  万有引力\nE＝1/2mv²  动能\nE＝mgh  重力势能\nE＝-GMm/r  万有引力势能\nW＝ΔE  功能转化\n1/2mv₁²+mgh₁＝1/2mv₂²+mgh₂  机械能守恒\np＝mv  动量\nm₁v₁+m₂v₂＝m₁v₃+m₂v₄  动量守恒\nI＝Δp  冲量\nI＝E/R+r  闭合电路欧姆定律\nF＝kQq/r²  静电力，库仑定律\nE＝kQ/r²  电场强度\nU＝φ₁-φ₂  电势差\nF = kx  胡克定律\nf = μN  滑动摩擦力\nT = 2π√(L/g)  单摆周期\nT = 2π√(m/k)  弹簧振子周期\npV = nRT  理想气体状态方程\nΔU = Q - W  热力学第一定律（系统对外做功）\nη = 1 - T₂/T₁  卡诺热机效率\nR = ρL/S  电阻定律\nC = Q/U  电容定义\nC = ε₀εᵣ S/d  平行板电容\n1/C = 1/C₁ + 1/C₂ + ...  电容串联\nC = C₁ + C₂ + ...  电容并联\nε = -L dI/dt  自感电动势\nU₁/U₂ = n₁/n₂  变压器电压比\nF = BIL sinθ  安培力\nF = qvB sinθ  洛伦兹力\nΦ = BS cosθ  磁通量\nε = -dΦ/dt  法拉第电磁感应定律\nε = BLv  动生电动势\nI = Q/t  电流定义\nP = I²R  焦耳定律（电热功率）\nU = Ed  匀强电场电势差与场强关系\nE = F/q  电场强度定义\nB = F/(IL)  磁感应强度定义（电流元）\nn₁ sinθ₁ = n₂ sinθ₂  折射定律\n1/f = 1/u + 1/v  薄透镜成像公式\nΔx = λL/d  双缝干涉条纹间距\nd sinθ = kλ  光栅方程\nhν = W + Ek  光电效应方程\nE = mc²  质能方程\nλ = h/p  德布罗意波长\nEₙ = -13.6/n² eV  氢原子能级\nN = N₀ e^(-λt)  放射性衰变定律\nT₁/₂ = ln2/λ  半衰期\nm = m₀/√(1 - v²/c²)  相对论质速关系\nEₖ = (γ - 1)m₀c²  相对论动能\np = γ m₀ v  相对论动量\nv = √(γRT/M)  声速（理想气体）"
+    }
+  ],
+  "hash": "20771766f1edd535",
+  "msg_rules": [],
+  "source": {
+    "qq": "3340613711"
+  }
+}
