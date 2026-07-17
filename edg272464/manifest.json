@@ -13,5 +13,9 @@
   "triggers": [
     "边界"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_edg272464_1784272507_48f59f3c"
+  ],
+  "message_count": 1
 }
