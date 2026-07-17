@@ -1,0 +1,25 @@
+{
+  "category": "华为",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "遥遥领先",
+        "鸿蒙",
+        "基本盘",
+        "小粉红",
+        "爱国饭"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "遥遥领先",
+    "鸿蒙",
+    "基本盘",
+    "小粉红",
+    "爱国饭"
+  ],
+  "match_mode": "contains"
+}
