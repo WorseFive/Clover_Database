@@ -1,0 +1,22 @@
+{
+  "id": "msg_galgame_1784280284_c7aad421",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/galgame/img_ff19283d0450.gif"
+    }
+  ],
+  "hash": "7b5027a0e168bfad",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "魅魔星奏"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
