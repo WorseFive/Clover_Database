@@ -1,0 +1,17 @@
+{
+  "category": "t275452",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "刁钻测试"
+      ],
+      "mode": "exact"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "刁钻测试"
+  ],
+  "match_mode": "exact"
+}
