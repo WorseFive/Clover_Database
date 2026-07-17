@@ -23,5 +23,9 @@
     "fx",
     "关灯吃面"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_久留美_1784277087_5359a49f"
+  ],
+  "message_count": 1
 }
