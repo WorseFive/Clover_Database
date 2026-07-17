@@ -19,5 +19,9 @@
     "旮旯给木",
     "galagame"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_galgame_1784273761_9d882480"
+  ],
+  "message_count": 1
 }
