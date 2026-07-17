@@ -1,0 +1,22 @@
+{
+  "id": "msg_t275452_1784275544_005460e7",
+  "content": [
+    {
+      "type": "text",
+      "text": "刁钻测试消息-t275452"
+    }
+  ],
+  "hash": "73c5098f73ba5fe4",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "刁钻触发"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
