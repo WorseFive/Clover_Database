@@ -15,5 +15,9 @@
     "豪情万丈",
     "嘉豪"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_嘉豪_1784278709_b18e9881"
+  ],
+  "message_count": 1
 }
