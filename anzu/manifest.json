@@ -17,5 +17,9 @@
     "鹰仓杏铃",
     "笨蛋黄毛"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_anzu_1784281281_c51a506c"
+  ],
+  "message_count": 1
 }
