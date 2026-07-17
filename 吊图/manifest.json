@@ -13,5 +13,9 @@
   "triggers": [
     "来点吊图"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_吊图_1784285267_5a273956"
+  ],
+  "message_count": 1
 }
