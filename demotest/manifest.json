@@ -17,7 +17,8 @@
   ],
   "match_mode": "exact",
   "message_ids": [
-    "msg_demotest_1784269562_bf7e93e6"
+    "msg_demotest_1784269562_bf7e93e6",
+    "msg_demotest_1784269612_9776b3c5"
   ],
-  "message_count": 1
+  "message_count": 2
 }
