@@ -1,0 +1,22 @@
+{
+  "id": "msg_galgame_1784273788_0f669069",
+  "content": [
+    {
+      "type": "image",
+      "url": "/opt/astrbot/data/temp/media_image_61a2d6299aad4a9892d80a27e1a4d140.jpg"
+    }
+  ],
+  "hash": "26710ad316532cf5",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "美味鸡巴"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
