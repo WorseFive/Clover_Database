@@ -11,7 +11,6 @@
     {
       "id": 1,
       "triggers": [
-        "v23k1784284853a",
         "v23k1784284853b"
       ],
       "mode": "contains"
