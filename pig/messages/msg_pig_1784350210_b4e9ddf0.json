@@ -1,0 +1,22 @@
+{
+  "id": "msg_pig_1784350210_b4e9ddf0",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/pig/img_1109eb738b32.gif"
+    }
+  ],
+  "hash": "381f8c038b859a51",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "捅猪"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
