@@ -13,5 +13,9 @@
   "triggers": [
     "来点东方"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_东方_1784346687_f95bd0cc"
+  ],
+  "message_count": 1
 }
