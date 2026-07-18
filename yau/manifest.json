@@ -1,0 +1,23 @@
+{
+  "category": "yau",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "yau",
+        "丘成桐",
+        "发自我的手机",
+        "發自我的手機"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "yau",
+    "丘成桐",
+    "发自我的手机",
+    "發自我的手機"
+  ],
+  "match_mode": "contains"
+}
