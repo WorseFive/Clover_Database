@@ -19,5 +19,9 @@
     "发自我的手机",
     "發自我的手機"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_yau_1784402104_ccc18857"
+  ],
+  "message_count": 1
 }
