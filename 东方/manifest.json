@@ -1,0 +1,17 @@
+{
+  "category": "东方",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "来点东方"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "来点东方"
+  ],
+  "match_mode": "contains"
+}
