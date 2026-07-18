@@ -1,0 +1,22 @@
+{
+  "id": "msg_sex_1784346759_198acc66",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/sex/img_dc101c0f221a.jpg"
+    }
+  ],
+  "hash": "a75b81730057c067",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "思想健康点会死啊"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
