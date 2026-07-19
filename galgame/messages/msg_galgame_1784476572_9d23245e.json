@@ -1,0 +1,22 @@
+{
+  "id": "msg_galgame_1784476572_9d23245e",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/galgame/img_0fae0b457bc3.jpg"
+    }
+  ],
+  "hash": "d184a9c91ed3da9f",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "气鼓鼓"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
