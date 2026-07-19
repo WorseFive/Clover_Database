@@ -1,0 +1,17 @@
+{
+  "category": "赛马娘",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "来点赛马娘"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "来点赛马娘"
+  ],
+  "match_mode": "contains"
+}
