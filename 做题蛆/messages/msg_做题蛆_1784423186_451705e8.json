@@ -1,0 +1,24 @@
+{
+  "id": "msg_做题蛆_1784423186_451705e8",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/做题蛆/img_05cae53e50ff.gif"
+    }
+  ],
+  "hash": "a44145e9b4e86e8a",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "张雪峰老师",
+        "念张师",
+        "我还记得你"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
