@@ -13,5 +13,9 @@
   "triggers": [
     "来点赛马娘"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_赛马娘_1784471956_2119b246"
+  ],
+  "message_count": 1
 }
