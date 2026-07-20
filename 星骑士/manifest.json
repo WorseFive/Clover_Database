@@ -1,0 +1,17 @@
+{
+  "category": "星骑士",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "来点星骑士"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "来点星骑士"
+  ],
+  "match_mode": "contains"
+}
