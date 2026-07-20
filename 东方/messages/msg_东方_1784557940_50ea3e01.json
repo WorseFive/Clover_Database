@@ -1,0 +1,22 @@
+{
+  "id": "msg_东方_1784557940_50ea3e01",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/东方/img_1bc0af46c5e0.jpg"
+    }
+  ],
+  "hash": "f20e84c9129dbe4b",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "👀"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
