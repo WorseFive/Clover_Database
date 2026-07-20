@@ -13,5 +13,9 @@
   "triggers": [
     "来点星骑士"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_星骑士_1784527979_69aa9001"
+  ],
+  "message_count": 1
 }
