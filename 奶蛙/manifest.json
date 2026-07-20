@@ -13,5 +13,9 @@
   "triggers": [
     "来点奶蛙"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_奶蛙_1784528037_4c452110"
+  ],
+  "message_count": 1
 }
