@@ -1,0 +1,17 @@
+{
+  "category": "奶蛙",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "来点奶蛙"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "来点奶蛙"
+  ],
+  "match_mode": "contains"
+}
