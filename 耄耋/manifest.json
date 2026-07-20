@@ -1,0 +1,19 @@
+{
+  "category": "耄耋",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "耄耋",
+        "大狗叫"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "耄耋",
+    "大狗叫"
+  ],
+  "match_mode": "contains"
+}
