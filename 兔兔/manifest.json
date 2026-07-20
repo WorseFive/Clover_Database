@@ -1,0 +1,17 @@
+{
+  "category": "兔兔",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "来点兔兔"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "来点兔兔"
+  ],
+  "match_mode": "contains"
+}
