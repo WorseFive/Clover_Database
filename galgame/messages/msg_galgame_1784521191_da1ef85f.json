@@ -1,0 +1,23 @@
+{
+  "id": "msg_galgame_1784521191_da1ef85f",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/galgame/img_66091666087c.jpg"
+    }
+  ],
+  "hash": "3f27b695c47ce5f0",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "尤斯蒂娅",
+        "上桌吃饭"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
