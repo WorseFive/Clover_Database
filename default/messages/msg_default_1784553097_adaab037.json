@@ -1,0 +1,22 @@
+{
+  "id": "msg_default_1784553097_adaab037",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/default/img_45c26897a421.jpg"
+    }
+  ],
+  "hash": "d04aca16b6f0a01f",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "大狗叫"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
