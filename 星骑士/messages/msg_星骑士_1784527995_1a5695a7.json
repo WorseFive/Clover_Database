@@ -1,0 +1,22 @@
+{
+  "id": "msg_星骑士_1784527995_1a5695a7",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/星骑士/img_143d76050e65.jpg"
+    }
+  ],
+  "hash": "2b389aecab1a5fdd",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "喝水颜"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
