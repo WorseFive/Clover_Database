@@ -13,5 +13,9 @@
   "triggers": [
     "来点漫画"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_comic_1784629925_b20c0e42"
+  ],
+  "message_count": 1
 }
