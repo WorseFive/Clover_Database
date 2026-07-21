@@ -17,5 +17,9 @@
     "anzu",
     "鹰仓杏铃"
   ],
-  "match_mode": "contains"
+  "match_mode": "contains",
+  "message_ids": [
+    "msg_杏铃_1784624791_f6a99086"
+  ],
+  "message_count": 1
 }
