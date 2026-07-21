@@ -1,0 +1,22 @@
+{
+  "id": "msg_comic_1784629925_b20c0e42",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/comic/img_91988d184516.jpg"
+    }
+  ],
+  "hash": "96b655628d3779d4",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "笨蛋"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
