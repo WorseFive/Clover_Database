@@ -1,0 +1,22 @@
+{
+  "id": "msg_杏铃_1784624791_f6a99086",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/杏铃/img_18d8fa471943.gif"
+    }
+  ],
+  "hash": "ec7c8202839d7ffc",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "戳戳"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
