@@ -1,0 +1,21 @@
+{
+  "category": "杏铃",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "来点杏铃",
+        "anzu",
+        "鹰仓杏铃"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "来点杏铃",
+    "anzu",
+    "鹰仓杏铃"
+  ],
+  "match_mode": "contains"
+}
