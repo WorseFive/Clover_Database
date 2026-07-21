@@ -1,0 +1,17 @@
+{
+  "category": "comic",
+  "rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "来点漫画"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "next_rule_id": 2,
+  "triggers": [
+    "来点漫画"
+  ],
+  "match_mode": "contains"
+}
