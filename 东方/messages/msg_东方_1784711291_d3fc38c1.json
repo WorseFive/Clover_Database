@@ -1,0 +1,22 @@
+{
+  "id": "msg_东方_1784711291_d3fc38c1",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/东方/img_7ab813458da4.gif"
+    }
+  ],
+  "hash": "ef4a19f4e2f3d20b",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "女苑"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "907825219"
+  }
+}
