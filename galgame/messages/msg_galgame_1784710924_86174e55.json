@@ -1,0 +1,22 @@
+{
+  "id": "msg_galgame_1784710924_86174e55",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/galgame/img_0008ceef10c9.gif"
+    }
+  ],
+  "hash": "2f0c1380cf10ccee",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "拼刺刀"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
