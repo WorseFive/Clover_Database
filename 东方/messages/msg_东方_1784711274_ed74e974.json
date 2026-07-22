@@ -1,0 +1,22 @@
+{
+  "id": "msg_东方_1784711274_ed74e974",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/东方/img_48ea2d2f0ccb.gif"
+    }
+  ],
+  "hash": "1261844c19da2082",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "探女"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "907825219"
+  }
+}
