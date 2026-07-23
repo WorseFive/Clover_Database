@@ -1,0 +1,24 @@
+{
+  "id": "msg_galgame_1784795168_eca81185",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/galgame/img_22986ef67f13.jpg"
+    }
+  ],
+  "hash": "cb973a2ab055fd42",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "萝莉控",
+        "lolicon",
+        "这就是群友吗"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
