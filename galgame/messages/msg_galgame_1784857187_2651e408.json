@@ -1,0 +1,23 @@
+{
+  "id": "msg_galgame_1784857187_2651e408",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/galgame/img_b4e577c9e3b0.jpg"
+    }
+  ],
+  "hash": "751a87c9b30a04a9",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "我没有钱",
+        "尤斯蒂娅"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
