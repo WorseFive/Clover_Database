@@ -1,0 +1,23 @@
+{
+  "id": "msg_galgame_1785129184_b8327257",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/galgame/img_8addf3ca45ad.jpg"
+    }
+  ],
+  "hash": "4642eac318a130ad",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "骨科",
+        "妹控"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
