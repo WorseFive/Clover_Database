@@ -1,0 +1,22 @@
+{
+  "id": "msg_galgame_1785154770_99341296",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/galgame/img_36da5261d96f.jpg"
+    }
+  ],
+  "hash": "578b80687460ee95",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "男的来了"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
