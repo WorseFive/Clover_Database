@@ -1,0 +1,22 @@
+{
+  "id": "msg_default_1786189451_2755b1fa",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/default/img_a06ef7795f91.jpg"
+    }
+  ],
+  "hash": "02a98affb63ba7a9",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "气鼓鼓"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
