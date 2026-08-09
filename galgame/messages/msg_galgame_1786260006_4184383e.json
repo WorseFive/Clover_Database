@@ -1,0 +1,22 @@
+{
+  "id": "msg_galgame_1786260006_4184383e",
+  "content": [
+    {
+      "type": "image",
+      "url": "data/clover_reply/local/galgame/img_99dc409aeced.jpg"
+    }
+  ],
+  "hash": "5786a973aa5c6a28",
+  "msg_rules": [
+    {
+      "id": 1,
+      "triggers": [
+        "男的恶心"
+      ],
+      "mode": "contains"
+    }
+  ],
+  "source": {
+    "qq": "3340613711"
+  }
+}
